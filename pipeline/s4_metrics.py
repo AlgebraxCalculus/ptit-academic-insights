@@ -1,9 +1,5 @@
-"""S4 — compute every statistic that appears in docs/insight-discovery.md.
-
-This module only composes the reusable functions in stats/*.py against the
-905-row in-scope DataFrame. It does not introduce any new analysis beyond
-what Phase 2 (insight-discovery.md) already established — per the brief for
-this phase, the analytical concept is not revisited here.
+"""S4 — computes every statistic in docs/insight-discovery.md by composing
+stats/*.py against the 905-row in-scope DataFrame. No new analysis here.
 """
 from __future__ import annotations
 

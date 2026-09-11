@@ -1,11 +1,6 @@
-"""Structural validation for the raw workbook.
-
-This implements the validation matrix documented in docs/architecture.md §4.2
-using plain assertions rather than a schema-validation dependency (e.g.
-pandera) — the checks are few, fixed, and easier to audit as explicit code
-than as a third-party DSL. If the source workbook drifts from this shape,
-the pipeline must stop rather than silently produce numbers that contradict
-docs/insight-discovery.md.
+"""Structural validation for the raw workbook (docs/architecture.md §4.2).
+Plain assertions rather than a schema-validation dependency — the checks
+are few and fixed enough that explicit code is easier to audit than a DSL.
 """
 from __future__ import annotations
 

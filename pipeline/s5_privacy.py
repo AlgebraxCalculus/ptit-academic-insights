@@ -17,11 +17,8 @@ FORBIDDEN_FIELD_PATTERN = re.compile(
     r"email|class_?code|tttn|id_format)"
 )
 
-# The maximum acceptable share of uniquely-identifiable rows in the
-# client-shipped payload, given the field set chosen in docs/architecture.md
-# §9.2 (track + major + cpa + credits + eligibility). Measured at build time
-# against this ceiling so a field addition that pushes uniqueness back up
-# toward the rejected ~85% (class_code included) fails the build.
+# Ceiling on uniquely-identifiable rows for the shipped field set
+# (docs/architecture.md §9.2). Adding class_code back pushes this to ~85%.
 MAX_UNIQUE_ROW_SHARE = 0.55
 
 

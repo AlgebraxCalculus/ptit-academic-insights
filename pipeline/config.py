@@ -1,8 +1,5 @@
-"""Central configuration for the PTIT Academic Insights data pipeline.
-
-Every constant here is traceable to a decision recorded in docs/data-audit.md,
-docs/insight-discovery.md or docs/architecture.md. Do not change a value here
-without updating the corresponding doc first.
+"""Pipeline configuration. Values are traceable to docs/*.md — don't change
+one without updating the corresponding doc.
 """
 from __future__ import annotations
 

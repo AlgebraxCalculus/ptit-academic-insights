@@ -17,7 +17,7 @@
   ],
   "00": {
     "headline": "905 sinh viên Công nghệ thông tin, một khóa, tại thời điểm xét đồ án tốt nghiệp",
-    "deck": "Dữ liệu chính thức từ danh sách đăng ký đồ án tốt nghiệp khóa 2022 của Học viện Công nghệ Bưu chính Viễn thông. Hai chương trình: Công nghệ thông tin (CNTT) và Công nghệ thông tin chất lượng cao (CNTT CLC). Đây là những gì dữ liệu cho phép nói — và những gì nó không cho phép.",
+    "deck": "Dữ liệu chính thức từ danh sách đăng ký đồ án tốt nghiệp khóa 2022 của Học viện Công nghệ Bưu chính Viễn thông. Hai chương trình: Công nghệ thông tin (CNTT) và Công nghệ thông tin chất lượng cao (CNTT CLC). Trang này chỉ nói những gì dữ liệu thực sự cho phép — không hơn.",
     "stats": [
       { "value": "905", "label": "sinh viên" },
       { "value": "18", "label": "lớp" },
@@ -25,56 +25,56 @@
       { "value": "1", "label": "khóa tuyển sinh (2022)" }
     ],
     "scrollCue": "Cuộn xuống để bắt đầu. Khoảng 8 phút đọc.",
-    "caveat": "Dataset chỉ gồm sinh viên hai chương trình CNTT và CNTT chất lượng cao. Không đại diện cho toàn bộ sinh viên PTIT, khối kỹ thuật PTIT, hay bất kỳ ngành đào tạo nào khác."
+    "caveat": "Dataset chỉ gồm sinh viên hai chương trình CNTT và CNTT chất lượng cao — không đại diện cho toàn bộ sinh viên PTIT, khối kỹ thuật, hay bất kỳ ngành nào khác."
   },
   "01": {
     "headline": "Đây là danh sách xét đồ án tốt nghiệp — không phải toàn bộ khóa tuyển sinh",
-    "deck": "Từ 2.023 sinh viên khối kỹ thuật trong file gốc, 905 người thuộc phạm vi phân tích này. Và ngay cả 905 người đó cũng đã là những người đi được đến bước xét đồ án.",
+    "deck": "File gốc có 2.023 sinh viên khối kỹ thuật. 905 người trong số đó thuộc phạm vi bài viết này. Và ngay cả 905 người đó cũng đã là những người đi được đến bước xét đồ án.",
     "body": [
-      "Sinh viên đã thôi học, bị buộc thôi học, bảo lưu dài hạn hoặc chuyển trường không xuất hiện trong danh sách này. Điều đó có nghĩa là phân phối điểm bạn sắp thấy đã bị cắt mất phần đuôi dưới, và mọi giá trị trung bình đều cao hơn thực tế của cả khóa.",
+      "Sinh viên đã thôi học, bị buộc thôi học, bảo lưu dài hạn hoặc chuyển trường không có trong danh sách này. Nghĩa là phần đuôi thấp của phân phối điểm bạn sắp xem đã bị cắt bớt, và mọi con số trung bình đều cao hơn thực tế của cả khóa.",
       "Hệ chất lượng cao (mã lớp bắt đầu bằng E22) được xác định theo quy ước của nhà trường."
     ],
     "expandLabel": "Xem đầy đủ 42 mã lớp trong file gốc",
-    "caveat": "Đây là một mẫu đã qua sàng lọc tự nhiên (survivorship-filtered), không phải một cohort đầy đủ. Mọi con số trong trang này mô tả nhóm sinh viên đã đi được đến bước xét đồ án tốt nghiệp."
+    "caveat": "Đây là một mẫu đã bị sàng lọc tự nhiên, không phải một cohort đầy đủ. Mọi con số trên trang này mô tả nhóm sinh viên đã đi được đến bước xét đồ án — không hơn."
   },
   "02": {
     "headline": "Ba phần tư đạt loại Khá trở lên. Một trong 45 người đạt Xuất sắc.",
-    "deck": "Điểm trung bình tích lũy của nhóm là 2.79 trên thang 4. Phần lớn sinh viên tập trung ở dải Khá, còn đỉnh trên rất mỏng.",
+    "deck": "Điểm trung bình tích lũy của cả nhóm là 2.79 trên thang 4. Phần lớn sinh viên nằm ở dải Khá; đỉnh trên khá mỏng.",
     "body": [
-      "Trên thang 4.0, sinh viên có CPA cao nhất trong nhóm đạt 3.72. Không ai đạt 4.0. Ở đầu kia, người thấp nhất là 1.40.",
-      "Con số trung bình là của cả nhóm — nhưng như các phần sau sẽ cho thấy, nhóm này thực chất gồm những tập hợp con rất khác nhau, và con số trung bình không mô tả đúng bất kỳ tập hợp con nào."
+      "Trên thang 4.0, sinh viên cao điểm nhất đạt 3.72 — không ai chạm mốc 4.0. Người thấp nhất là 1.40.",
+      "Con số 2.79 mô tả cả nhóm gộp lại. Nhưng như các phần sau sẽ cho thấy, nhóm này thực ra gồm nhiều tập hợp con rất khác nhau, và không tập hợp con nào thực sự trông giống 2.79 cả."
     ],
-    "footnote": "n = 903. Hai sinh viên không có giá trị CPA trong dữ liệu gốc (cả hai đều thuộc nhóm không đủ điều kiện, 0 tín chỉ tích lũy) và được loại khỏi các phép tính về CPA nhưng vẫn giữ trong dataset.",
+    "footnote": "n = 903. Hai sinh viên không có giá trị CPA trong dữ liệu gốc (cả hai đều thuộc nhóm không đủ điều kiện, 0 tín chỉ tích lũy), nên bị loại khỏi các phép tính CPA nhưng vẫn giữ trong dataset.",
     "altText": "Biểu đồ cột 100% cho thấy 57.1% sinh viên đạt loại Khá, 18.7% Trung bình, 17.4% Giỏi, 4.5% Yếu và 2.2% Xuất sắc."
   },
   "03": {
     "headline": "Một nửa số sinh viên nằm gọn trong khoảng 0.59 điểm",
-    "deck": "Từ 2.52 đến 3.11. Phân phối CPA đơn đỉnh, gần đối xứng, và nén chặt hơn nhiều so với cảm giác thông thường về \"khoảng cách học lực\".",
+    "deck": "Từ 2.52 đến 3.11. Phân phối CPA có một đỉnh, khá cân đối, và nén chặt hơn nhiều so với cảm giác thông thường về \"khoảng cách học lực\".",
     "body": [
-      "Chênh lệch 0.1 điểm CPA nghe rất nhỏ, và về mặt thang đo thì đúng là nhỏ — hệ số Gini của CPA chỉ 0.088, thấp hơn nhiều so với các biến như thu nhập. Nhưng vì phân phối nén chặt, 0.1 điểm vẫn có thể dịch chuyển một sinh viên qua vài chục bậc thứ hạng.",
-      "Phân phối này bác bỏ giả thuyết bimodal: mặc dù nhóm gồm nhiều chuyên ngành có điểm trung bình cách nhau khá xa, biểu đồ gộp vẫn chỉ có một đỉnh. Đó chính là lý do phần tiếp theo quan trọng — cấu trúc thật bị che khuất hoàn toàn ở mức tổng."
+      "0.1 điểm CPA nghe có vẻ chẳng đáng gì — và trên thang điểm này thì đúng là nhỏ thật, hệ số Gini chỉ 0.088, thấp hơn nhiều so với những thứ như thu nhập. Nhưng vì phân phối nén chặt, 0.1 điểm vẫn đủ để đẩy một sinh viên qua vài chục bậc xếp hạng.",
+      "Điều bất ngờ: dù nhóm này gồm nhiều chuyên ngành có điểm trung bình cách nhau khá xa, biểu đồ gộp lại chỉ có một đỉnh duy nhất, không hề chia hai. Cấu trúc thật sự nằm ẩn bên dưới — và đó là lý do phần tiếp theo đáng xem."
     ],
     "toggleLabel": "Hiện dải xếp loại",
-    "caveat": "Đuôi dưới của phân phối này đã bị cắt: sinh viên rời hệ thống trước thời điểm xét đồ án không có trong dữ liệu. Phân phối thật của cả khóa tuyển sinh sẽ có đuôi dưới dài hơn và trung bình thấp hơn.",
+    "caveat": "Đuôi thấp của phân phối này đã bị cắt bớt — sinh viên rời hệ thống trước khi xét đồ án không có mặt ở đây. Phân phối thật của cả khóa sẽ trải dài hơn về phía dưới, với trung bình thấp hơn.",
     "altText": "Biểu đồ histogram CPA hình chuông lệch nhẹ, đỉnh quanh 2.6-2.8, trải từ 1.4 đến 3.72."
   },
   "04": {
     "headline": "Hệ chất lượng cao có CPA trung bình cao hơn 0.106 điểm — cho đến khi so cùng chuyên ngành",
-    "deck": "Khi tách theo chuyên ngành, dấu của chênh lệch đảo ngược. Đây không phải lỗi tính toán, mà là một đặc điểm thật của dữ liệu.",
+    "deck": "Tách theo chuyên ngành, chênh lệch đổi dấu. Không phải lỗi tính toán — đó là một đặc điểm thật của dữ liệu.",
     "steps": [
       {
-        "body": "Đây là con số thường được trích dẫn. Nó đúng về mặt số học. Nhưng nhóm CNTT không phải một khối đồng nhất — nó gồm hai chuyên ngành có kết quả rất khác nhau."
+        "body": "Đây là con số hay được nhắc tới, và nó đúng về mặt số học. Nhưng nhóm CNTT không phải một khối đồng nhất — bên trong là hai chuyên ngành có kết quả khá khác nhau."
       },
       {
-        "body": "Cùng tên chuyên ngành Công nghệ phần mềm, hệ chất lượng cao thấp hơn 0.264 điểm. Cùng tên chuyên ngành Hệ thống thông tin, hệ chất lượng cao cao hơn 0.433 điểm. Con số gộp +0.106 là kết quả của việc hai hiệu ứng ngược chiều triệt tiêu nhau theo tỷ trọng — không phải của một chênh lệch nhất quán."
+        "body": "Tách riêng: ở chuyên ngành Công nghệ phần mềm, hệ chất lượng cao thấp hơn 0.264 điểm. Ở Hệ thống thông tin thì lại cao hơn 0.433 điểm. Con số gộp +0.106 chỉ là kết quả của hai chiều ngược nhau triệt tiêu bớt nhau theo tỷ trọng — chứ không phản ánh một xu hướng nhất quán nào."
       },
       {
-        "body": "Chênh lệch giữa hai chương trình cũng không đều trên toàn phân phối. Ở phân vị 10, hệ chất lượng cao cao hơn 0.234 điểm; ở trung vị chỉ còn 0.040; ở đỉnh thì gần như bằng nhau. Khác biệt nằm ở chỗ hệ chất lượng cao có ít sinh viên ở nhóm điểm thấp hơn — chứ không phải có nhiều sinh viên xuất sắc hơn."
+        "body": "Chênh lệch cũng không đều trên toàn phân phối. Ở phân vị 10, hệ chất lượng cao cao hơn 0.234 điểm; đến trung vị chỉ còn 0.040; lên đến đỉnh thì gần như ngang nhau. Nói cách khác, hệ chất lượng cao có ít sinh viên điểm thấp hơn — chứ không phải nhiều sinh viên xuất sắc hơn."
       }
     ],
     "resetLabel": "Xem lại từ đầu",
-    "caveat": "Không được đọc ngược thành 'hệ chất lượng cao dạy kém hơn ở chuyên ngành này, tốt hơn ở chuyên ngành kia'. Hai nhóm khác nhau về thành phần đầu vào trước khi khác nhau về bất cứ điều gì khác — xem phần tiếp theo.",
-    "footnote": "Chuyên ngành E22TTNT (n=38) không có nhóm đối ứng bên hệ CNTT chuẩn nên không tham gia phép so sánh ghép cặp — tương đương 17.7% nhóm chất lượng cao nằm ngoài so sánh này. Riêng con số gộp (p=0.007) không vượt qua hiệu chỉnh đa so sánh Bonferroni; hai con số ghép cặp thì vượt.",
+    "caveat": "Đừng đọc ngược thành \"hệ chất lượng cao dạy kém ở chuyên ngành này, tốt ở chuyên ngành kia\". Hai nhóm đã khác nhau về đầu vào từ trước khi khác nhau ở bất cứ điều gì khác — phần tiếp theo sẽ giải thích rõ hơn.",
+    "footnote": "Chuyên ngành E22TTNT (n=38) không có nhóm đối ứng bên hệ CNTT chuẩn nên không nằm trong phép so sánh ghép cặp này — tương đương 17.7% nhóm chất lượng cao đứng ngoài. Con số gộp (p=0.007) cũng không qua được hiệu chỉnh Bonferroni cho nhiều phép so sánh, trong khi hai con số ghép cặp thì qua.",
     "altText": {
       "step1": "Hai thanh: CNTT 2.77 và CNTT CLC 2.87.",
       "step2": "Biểu đồ đường dốc hai đường: cặp CNPM dốc xuống từ 3.02 xuống 2.76; cặp HTTT dốc lên từ 2.48 lên 2.92.",
@@ -83,61 +83,61 @@
   },
   "05": {
     "headline": "Chương trình đào tạo giải thích 1% khác biệt CPA. Chuyên ngành giải thích 34%.",
-    "deck": "Nếu muốn biết vì sao hai sinh viên có CPA khác nhau, việc họ học hệ chuẩn hay chất lượng cao gần như không giúp gì. Việc họ ở chuyên ngành nào thì giúp rất nhiều.",
+    "deck": "Muốn biết vì sao hai sinh viên có CPA khác nhau? Việc họ học hệ chuẩn hay chất lượng cao gần như chẳng nói lên điều gì. Chuyên ngành họ theo học thì có.",
     "body": [
-      "η² đo tỷ lệ phương sai CPA mà một cách phân nhóm giải thích được. Chia theo chương trình: 1.1%. Chia theo chuyên ngành: 34.5% — gấp hơn 31 lần.",
-      "Điều này giải thích vì sao phần trước lại đảo dấu. Ranh giới thật trong dữ liệu không chạy giữa hai chương trình, mà chạy giữa các chuyên ngành. Khi gộp theo chương trình, ta đang trộn lẫn các nhóm khác nhau rất xa và lấy trung bình của hỗn hợp đó."
+      "η² đo tỷ lệ phương sai CPA mà một cách phân nhóm giải thích được. Theo chương trình: 1.1%. Theo chuyên ngành: 34.5% — gấp hơn 31 lần.",
+      "Đây chính là lý do phần trước đảo dấu. Ranh giới thật trong dữ liệu không nằm giữa hai chương trình, mà nằm giữa các chuyên ngành. Gộp theo chương trình tức là đang trộn lẫn những nhóm rất khác nhau rồi lấy trung bình của hỗn hợp đó."
     ],
     "toggleLabels": { "program": "Theo chương trình", "track": "Theo chuyên ngành" },
-    "caveat": "η² mô tả mức độ một cách phân nhóm tách được dữ liệu, không phải mức độ nhóm đó gây ra kết quả. Con số 34.5% phần lớn phản ánh cách sinh viên được phân vào chuyên ngành — xem ngay dưới.",
+    "caveat": "η² chỉ cho biết một cách phân nhóm tách dữ liệu tốt đến đâu, không phải nhóm đó có gây ra kết quả hay không. Con số 34.5% phần lớn đến từ cách sinh viên được phân vào chuyên ngành ngay từ đầu — xem phần dưới.",
     "altText": "Biểu đồ cột ngang xếp hạng 10 biến theo eta bình phương; chuyên ngành và lớp học dẫn đầu ở khoảng 0.34-0.35, chương trình đào tạo gần cuối bảng ở 0.011."
   },
   "05b": {
     "headline": "Hai chuyên ngành của cùng một ngành cách nhau 0.54 điểm — và không một sinh viên CNPM nào dưới 2.43",
-    "deck": "Cả 690 sinh viên hệ CNTT chuẩn đều vào trường bằng cùng một mã ngành. Nhưng phân phối điểm của hai chuyên ngành gần như không chồng lên nhau ở phần đuôi.",
+    "deck": "Cả 690 sinh viên hệ CNTT chuẩn đều vào trường bằng cùng một mã ngành. Nhưng phân phối điểm của hai chuyên ngành gần như tách hẳn nhau ở phần đuôi.",
     "body": [
-      "Đuôi dưới của CNPM dừng đột ngột ở 2.43, trong khi HTTT trải xuống tới 1.65. Một phân phối bị cắt sắc như vậy thường là dấu hiệu của việc phân nhóm theo chính biến đang được đo.",
-      "Nếu sinh viên được phân chuyên ngành dựa trên xếp hạng CPA, thì CPA là nguyên nhân của việc phân nhóm, chứ không phải kết quả của nó. Khi đó việc so sánh CPA giữa hai chuyên ngành trở thành vòng luẩn quẩn — giải thích kết quả bằng đúng thứ đã tạo ra nhóm.",
-      "Cơ chế phân chuyên ngành hiện chưa được xác nhận. Cho đến khi có xác nhận từ nhà trường, đây phải được đọc như một quan sát về cấu trúc dữ liệu, không phải một đánh giá về hai chuyên ngành."
+      "Đuôi thấp của CNPM dừng đột ngột ở 2.43, còn HTTT thì trải xuống tận 1.65. Một phân phối bị cắt sắc như vậy thường là dấu hiệu cho thấy việc phân nhóm đã dựa trên chính biến đang được đo.",
+      "Nếu sinh viên được xếp chuyên ngành theo thứ hạng CPA, thì CPA là nguyên nhân của việc phân nhóm — không phải kết quả. Khi đó so sánh CPA giữa hai chuyên ngành chẳng khác nào lấy chính thứ tạo ra sự khác biệt để giải thích sự khác biệt.",
+      "Cơ chế phân chuyên ngành thật sự vẫn chưa được nhà trường xác nhận. Cho đến lúc đó, hãy đọc điều này như một quan sát về cấu trúc dữ liệu, không phải một nhận xét về chất lượng của hai chuyên ngành."
     ],
     "annotation": "Không sinh viên CNPM nào dưới ngưỡng này",
-    "caveat": "Đây là caveat quan trọng nhất của toàn bộ dự án. Chênh lệch này rất có thể là hệ quả của cách phân chuyên ngành, không phải của việc học ở chuyên ngành đó. Không được diễn giải thành đánh giá chất lượng hai chuyên ngành.",
+    "caveat": "Chênh lệch này nhiều khả năng đến từ cách phân chuyên ngành, không phải từ việc học ở chuyên ngành nào tốt hơn. Đừng biến nó thành một đánh giá chất lượng.",
     "altText": "Biểu đồ mật độ chồng của D22CNPM và D22HTTT: đường CNPM dừng hẳn ở 2.43, đường HTTT trải rộng từ 1.65 đến 3.69, hai đường chỉ chồng lấn một phần nhỏ."
   },
   "05c": {
     "headline": "Không có lớp nào \"tốt hơn\" lớp nào — trong cùng chuyên ngành, 18 lớp không phân biệt được",
-    "deck": "Chênh lệch điểm trung bình giữa các lớp cùng chuyên ngành chỉ 0.05–0.12, nhỏ hơn sai số. Giữa các chuyên ngành thì là 0.76.",
+    "deck": "Chênh lệch điểm trung bình giữa các lớp cùng chuyên ngành chỉ 0.05–0.12, nhỏ hơn cả sai số. Giữa các chuyên ngành thì con số đó là 0.76.",
     "body": [
-      "Trong cả ba chuyên ngành có nhiều lớp, kiểm định Kruskal-Wallis đều không phát hiện khác biệt. Thêm 13 nhóm lớp vào mô hình chỉ làm tăng khả năng giải thích thêm chưa đến 1 điểm phần trăm.",
-      "Vì lý do đó, trang này cố ý không xếp hạng lớp. Chênh lệch quan sát được giữa các lớp nhỏ hơn sai số đo, nhưng sẽ luôn bị đọc thành 'lớp này giỏi hơn lớp kia'."
+      "Ở cả ba chuyên ngành có nhiều lớp, kiểm định Kruskal-Wallis đều không phát hiện khác biệt nào đáng kể. Thêm 13 nhóm lớp vào mô hình chỉ tăng thêm chưa tới 1 điểm phần trăm khả năng giải thích.",
+      "Vì vậy trang này cố tình không xếp hạng lớp. Chênh lệch quan sát được giữa các lớp nhỏ hơn cả sai số đo, nhưng vẫn sẽ bị đọc thành \"lớp này giỏi hơn lớp kia\" nếu trình bày sai cách."
     ],
-    "caveat": "'Không phân biệt được về mặt thống kê' không đồng nghĩa với 'giống hệt nhau'. Với khoảng 55 sinh viên mỗi lớp, khả năng phát hiện khác biệt nhỏ là thấp. Đây là bằng chứng về việc thiếu bằng chứng, không phải bằng chứng về sự đồng nhất.",
+    "caveat": "\"Không phân biệt được về mặt thống kê\" không có nghĩa là \"giống hệt nhau\" — chỉ là với khoảng 55 sinh viên mỗi lớp, rất khó phát hiện được khác biệt nhỏ nếu nó thực sự tồn tại.",
     "altText": "Biểu đồ caterpillar 18 lớp với khoảng tin cậy 95%, sắp theo chuyên ngành; các khoảng tin cậy trong cùng chuyên ngành chồng lên nhau, còn giữa các chuyên ngành thì tách rời rõ rệt."
   },
   "06": {
     "headline": "86% sinh viên hệ chất lượng cao không vào trường bằng mã ngành Công nghệ thông tin",
-    "deck": "Hai chương trình khác nhau về thành phần đầu vào trước khi khác nhau về bất cứ điều gì khác. Đây là lời giải thích cho sự đảo dấu ở phần trước.",
+    "deck": "Hai chương trình đã khác nhau về đầu vào từ trước khi khác nhau ở bất cứ điều gì khác. Đây chính là lời giải cho sự đảo dấu ở phần trước.",
     "body": [
-      "Toàn bộ 690 sinh viên hệ CNTT chuẩn vào trường bằng mã ngành Công nghệ thông tin. Ở hệ chất lượng cao, chỉ 29 người như vậy — phần lớn còn lại đến từ Viễn thông (96), Điện tử (50) và An toàn thông tin (34).",
-      "Và mã ngành tuyển sinh vẫn tạo khác biệt bên trong hệ chất lượng cao: nhóm vào bằng mã CNTT hoặc An toàn thông tin có CPA trung bình cao hơn khoảng 0.30 điểm so với nhóm vào bằng mã Viễn thông hoặc Điện tử.",
-      "Mã ngành tuyển sinh phản ánh điểm đầu vào và lựa chọn ban đầu của sinh viên. Không biến nào trong số đó có mặt trong dataset này. Đó là biến kiểm soát then chốt bị thiếu."
+      "Cả 690 sinh viên hệ CNTT chuẩn đều vào trường bằng mã ngành Công nghệ thông tin. Ở hệ chất lượng cao thì chỉ 29 người như vậy — phần lớn còn lại đến từ Viễn thông (96), Điện tử (50) và An toàn thông tin (34).",
+      "Mã ngành tuyển sinh vẫn tạo ra khác biệt ngay trong nội bộ hệ chất lượng cao: nhóm vào bằng mã CNTT hoặc An toàn thông tin có CPA trung bình cao hơn khoảng 0.30 điểm so với nhóm vào bằng mã Viễn thông hoặc Điện tử.",
+      "Mã ngành tuyển sinh phần nào phản ánh điểm đầu vào và lựa chọn ban đầu của sinh viên — thứ mà dataset này hoàn toàn không có. Đây chính là biến kiểm soát quan trọng nhất đang bị thiếu."
     ],
-    "caveat": "Các nhóm quá nhỏ (dưới 20 sinh viên) không hiển thị điểm trung bình riêng và không được đưa vào so sánh; bảng thành phần vẫn tính đủ để tổng khớp với số sinh viên thật.",
+    "caveat": "Các nhóm dưới 20 sinh viên không hiển thị điểm trung bình riêng và không được đưa vào so sánh — dù vậy bảng thành phần vẫn tính đủ để tổng khớp với số sinh viên thật.",
     "altText": "Hai thanh ngang xếp chồng thể hiện thành phần mã ngành tuyển sinh của CNTT (100% một màu) và CNTT CLC (chia thành nhiều mảng: Viễn thông 44.7%, Điện tử 23.3%, An toàn thông tin 15.8%, CNTT 13.5%)."
   },
   "07": {
     "headline": "99.4% sinh viên CNPM đủ điều kiện làm đồ án. Ở HTTT là 83.5%.",
-    "deck": "Nhưng CPA không phải thứ quyết định điều đó — 13% sinh viên không đủ điều kiện vẫn có CPA từ 2.5 trở lên, và người cao nhất trong nhóm đó đạt 3.37.",
+    "deck": "Nhưng CPA không phải thứ quyết định điều đó — 13% sinh viên không đủ điều kiện vẫn có CPA từ 2.5 trở lên, và người cao nhất trong số đó đạt tới 3.37.",
     "body": [
-      "Chênh lệch giữa hai chuyên ngành là gần 16 điểm phần trăm. Giữa hai chương trình thì không có chênh lệch có ý nghĩa thống kê — thêm một lần nữa, ranh giới không nằm ở nơi người ta thường tìm.",
-      "Sinh viên không đủ điều kiện có CPA thấp hơn rõ rệt. Nhưng quan hệ không phải một-một: trong dải tín chỉ tích lũy mà cả hai nhóm cùng xuất hiện, có nhiều sinh viên đủ điều kiện hơn không đủ — cùng một khoảng tín chỉ, hai kết quả khác nhau.",
-      "Điều đó có nghĩa là tiêu chí xét duyệt phụ thuộc vào những yếu tố không có trong dataset này. Chúng ta không quan sát được biến quyết định, nên không thể — và không nên — suy ngược ra quy tắc xét duyệt."
+      "Chênh lệch giữa hai chuyên ngành xấp xỉ 16 điểm phần trăm. Giữa hai chương trình thì gần như không có khác biệt có ý nghĩa thống kê — một lần nữa, ranh giới thật không nằm ở chỗ người ta hay tìm.",
+      "Sinh viên không đủ điều kiện quả thực có CPA thấp hơn hẳn. Nhưng đây không phải quan hệ một-một: trong cùng một dải tín chỉ tích lũy, có cả sinh viên đủ điều kiện lẫn không đủ — cùng số tín chỉ, khác kết quả.",
+      "Nói cách khác, tiêu chí xét duyệt còn phụ thuộc vào những yếu tố không nằm trong dataset này. Vì không quan sát được biến quyết định đó, trang này sẽ không — và không nên — cố suy ngược ra quy tắc xét duyệt."
     ],
     "toggleLabels": { "track": "Theo chuyên ngành", "program": "Theo chương trình" },
-    "caveat": "Tỷ lệ 100% ở hai chuyên ngành nhỏ nhất dựa trên mẫu chỉ 38-40 người; cận dưới khoảng tin cậy thực tế thấp hơn nhiều. Chỉ có 2 sinh viên CNPM không đủ điều kiện nên mọi tỷ số nguy cơ tính từ mẫu số này đều không ổn định — trang này trình bày chênh lệch điểm phần trăm thay vì tỷ số. Nhóm không đủ điều kiện chỉ có 69 người và không được tách nhỏ theo lớp.",
+    "caveat": "Tỷ lệ 100% ở hai chuyên ngành nhỏ nhất chỉ dựa trên 38-40 người, nên khoảng tin cậy thực tế rộng hơn nhiều so với con số tròn trịa đó. Riêng D22CNPM chỉ có 2 sinh viên không đủ điều kiện, nên mọi tỷ số nguy cơ tính từ mẫu số này đều không đáng tin — vì vậy trang này dùng chênh lệch điểm phần trăm thay vì tỷ số. Nhóm không đủ điều kiện cũng chỉ có 69 người, không đủ để tách nhỏ theo lớp.",
     "timePanel": {
       "headline": "Vì sao không có biểu đồ xu hướng theo thời gian",
-      "body": "Dataset là một ảnh chụp tại một thời điểm xét đồ án, không có cột thời gian nào. Và 899 trong 905 sinh viên thuộc cùng khóa tuyển sinh 2022 — 6 người còn lại thuộc khóa 2021, quá ít để phân tích. Vì vậy không thể so sánh giữa các khóa hay theo dõi diễn biến theo thời gian. Đây là kết luận có kiểm chứng, không phải một phần bị bỏ sót."
+      "body": "Dataset chỉ là một lát cắt tại thời điểm xét đồ án — không có cột thời gian nào cả. Và 899 trong 905 sinh viên thuộc cùng khóa 2022; 6 người còn lại thuộc khóa 2021, quá ít để nói lên điều gì. Vậy nên việc so sánh giữa các khóa hay theo dõi xu hướng theo thời gian đơn giản là không làm được — đây là một kết luận đã kiểm chứng, không phải một phần bị bỏ sót."
     },
     "altText": {
       "bars": "Biểu đồ cột tỷ lệ đủ điều kiện làm đồ án theo 5 chuyên ngành, D22CNPM cao nhất ở 99.4%, D22HTTT thấp nhất ở 83.5%.",
@@ -146,7 +146,7 @@
   },
   "08": {
     "headline": "Tự kiểm chứng",
-    "deck": "Mọi con số ở trên đều tính từ cùng một bộ 905 dòng. Lọc theo cách của bạn và xem phân phối thay đổi ra sao.",
+    "deck": "Mọi con số ở trên đều tính từ cùng một bộ 905 dòng. Cứ lọc theo cách của bạn và xem phân phối thay đổi ra sao.",
     "filters": {
       "program": "Chương trình",
       "track": "Chuyên ngành",
@@ -158,9 +158,9 @@
     "resetLabel": "Đặt lại",
     "quickEstimateLabel": "ước lượng nhanh",
     "suppressedMessage": "Chỉ có {n} sinh viên khớp bộ lọc này. Trang không hiển thị nhóm dưới 10 người để bảo vệ quyền riêng tư.",
-    "smallSampleMessage": "Cỡ mẫu nhỏ — khoảng tin cậy rộng.",
+    "smallSampleMessage": "Cỡ mẫu nhỏ — khoảng tin cậy sẽ rộng hơn bình thường.",
     "classOverlayNote": "Các lớp trong cùng chuyên ngành không khác biệt có ý nghĩa thống kê (xem phần trên).",
-    "caveat": "Việc lọc ra một nhóm không biến nó thành một phát hiện. Bộ lọc càng nhiều điều kiện, khả năng bắt gặp một chênh lệch ngẫu nhiên càng cao. Mọi con số ở đây là mô tả của nhóm được lọc, không phải bằng chứng về nguyên nhân."
+    "caveat": "Lọc ra được một nhóm không có nghĩa là bạn vừa tìm ra một phát hiện. Càng nhiều điều kiện lọc, càng dễ vô tình bắt trúng một chênh lệch ngẫu nhiên. Mọi con số ở đây chỉ mô tả nhóm đã lọc — không phải bằng chứng về nguyên nhân."
   },
   "09": {
     "headline": "Con số này đến từ đâu",
@@ -180,10 +180,10 @@
         "rows": [
           ["CPA đọc từ text sang số, có assertion 0-4", "Cột gốc lưu toàn bộ dưới dạng chuỗi; nếu không ép kiểu, mọi phép trung bình và sắp xếp sẽ sai âm thầm"],
           ["Chuỗi rỗng → giá trị thiếu", "3 ô CPA trong file gốc là chuỗi rỗng, không phải null"],
-          ["Không điền khuyết CPA hay TTTN", "Cả hai đều thiếu có cấu trúc (MNAR) — điền vào sẽ bịa dữ liệu"],
+          ["Không điền khuyết CPA hay TTTN", "Cả hai đều thiếu có cấu trúc — điền vào coi như bịa dữ liệu"],
           ["Chuẩn hóa khoảng trắng và tên nơi sinh", "Một số giá trị bị đếm tách do khoảng trắng kép hoặc cách viết khác nhau"],
           ["Không loại bỏ giá trị ngoại lai", "Các outlier CPA đều là sinh viên không đủ điều kiện với rất ít tín chỉ — hợp lệ và giải thích được"],
-          ["Gắn cờ thay vì sửa/xóa dữ liệu bất thường", "6 sinh viên khóa 2021, 2 mã sinh viên sai định dạng — giữ nguyên, đánh dấu"]
+          ["Gắn cờ thay vì sửa/xóa dữ liệu bất thường", "6 sinh viên khóa 2021, 2 mã sinh viên sai định dạng — giữ nguyên, chỉ đánh dấu"]
         ]
       },
       "metrics": {
@@ -225,33 +225,33 @@
     "items": [
       {
         "question": "\"Chương trình nào đào tạo tốt hơn?\"",
-        "answer": "Dữ liệu quan sát, một thời điểm, không có nhóm đối chứng, không có điểm đầu vào. Không thỏa mãn bất kỳ điều kiện nào cho suy luận nhân quả. Và dấu của chênh lệch còn đảo khi đổi cách phân tầng."
+        "answer": "Dữ liệu quan sát, một thời điểm, không nhóm đối chứng, không điểm đầu vào — không đủ điều kiện cho bất kỳ suy luận nhân quả nào. Và như đã thấy, dấu của chênh lệch còn đảo ngược khi đổi cách phân tầng."
       },
       {
         "question": "\"Chuyên ngành nào tốt hơn?\"",
-        "answer": "Có bằng chứng mạnh rằng CPA là tiêu chí phân chuyên ngành chứ không phải kết quả của nó. So sánh CPA giữa các chuyên ngành khi đó là vòng luẩn quẩn."
+        "answer": "Có bằng chứng khá mạnh cho thấy CPA là tiêu chí dùng để phân chuyên ngành, chứ không phải kết quả của việc học chuyên ngành đó. So sánh CPA giữa các chuyên ngành lúc này chẳng khác gì vòng luẩn quẩn."
       },
       {
         "question": "\"Sinh viên PTIT nói chung học thế nào?\"",
-        "answer": "Dataset chỉ gồm hai chương trình CNTT của một khóa. Không đại diện cho toàn trường, khối kỹ thuật, hay bất kỳ ngành nào khác."
+        "answer": "Dataset chỉ có hai chương trình CNTT của một khóa duy nhất — không nói lên được điều gì về toàn trường, khối kỹ thuật, hay ngành khác."
       },
       {
         "question": "\"Kết quả học tập thay đổi theo thời gian ra sao?\"",
-        "answer": "899/905 sinh viên cùng khóa 2022; dataset không có trục thời gian. Không thể so sánh giữa các khóa."
+        "answer": "899/905 sinh viên cùng khóa 2022, và dataset không có trục thời gian — không thể so sánh giữa các khóa."
       },
       {
         "question": "\"Vì sao một số sinh viên không đủ điều kiện làm đồ án?\"",
-        "answer": "Trong cùng dải tín chỉ, có cả sinh viên đủ điều kiện và không đủ. Biến quyết định không có trong dataset."
+        "answer": "Trong cùng một dải tín chỉ, có cả sinh viên đủ điều kiện lẫn không đủ. Biến thực sự quyết định điều này không có trong dataset."
       },
       {
         "question": "\"Yếu tố nào ảnh hưởng đến CPA?\"",
-        "answer": "Điểm đầu vào, hoàn cảnh kinh tế - xã hội, giới tính, động lực, điểm từng học phần, giảng viên — không có biến nào trong dataset."
+        "answer": "Điểm đầu vào, hoàn cảnh kinh tế - xã hội, giới tính, động lực, điểm từng học phần, giảng viên — không cái nào có mặt trong dataset này."
       }
     ],
-    "closing": "Ba câu hỏi vẫn đang chờ xác nhận từ nhà trường: cơ chế phân sinh viên vào hai chuyên ngành CNPM và HTTT; ý nghĩa đầy đủ của cột TTTN; và diện sinh viên của 2 mã sinh viên có định dạng khác biệt. Câu hỏi đầu tiên ảnh hưởng trực tiếp đến cách đọc phần cấu trúc chuyên ngành."
+    "closing": "Ba câu hỏi vẫn đang chờ nhà trường xác nhận: cơ chế phân sinh viên vào hai chuyên ngành CNPM và HTTT, ý nghĩa đầy đủ của cột TTTN, và diện sinh viên của 2 mã sinh viên có định dạng khác thường. Câu đầu tiên ảnh hưởng trực tiếp đến cách đọc phần cấu trúc chuyên ngành ở trên."
   },
   "footer": {
     "text": "PTIT Academic Insights — một dự án phân tích dữ liệu công khai, không liên kết chính thức với PTIT.",
-    "sourceNote": "Dữ liệu nguồn không được công bố. Mọi số liệu trên trang này đều đã ẩn danh."
+    "sourceNote": "Dữ liệu nguồn không được công bố. Mọi số liệu trên trang này đều đã được ẩn danh."
   }
 }

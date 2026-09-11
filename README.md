@@ -6,6 +6,11 @@ snapshot. Static site, no backend, no database — every number on the page is
 precomputed by a Python pipeline from one Excel file and shipped as
 anonymized JSON.
 
+**Live:** https://site-theta-brown-88.vercel.app (unclaimed temporary Vercel
+deployment — see `docs/final-review.md` §7 for deployment details and how to
+claim permanent ownership)
+**Repository:** https://github.com/AlgebraxCalculus/ptit-academic-insights
+
 **Read these first, in order — they are the source of truth this
 implementation follows exactly:**
 
@@ -13,6 +18,7 @@ implementation follows exactly:**
 2. [`docs/insight-discovery.md`](docs/insight-discovery.md) — every statistic, with evidence, that the site is allowed to state
 3. [`docs/website-spec.md`](docs/website-spec.md) — the page's content structure, headlines, copy, interactions
 4. [`docs/architecture.md`](docs/architecture.md) — the technical design this code implements
+5. [`docs/final-review.md`](docs/final-review.md) — senior review: validation, statistical/privacy/UX/performance audit, production build and deployment sign-off
 
 If a number on the site and a number in `docs/insight-discovery.md` ever
 disagree, the document is right and the code is wrong — fix the code (see
