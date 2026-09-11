@@ -5,8 +5,9 @@ import Caveat from "../components/layout/Caveat.astro";
 import EtaSquaredBar from "../components/charts/EtaSquaredBar.astro";
 import ColorByToggle from "../components/charts/ColorByToggle";
 import TrackRidgeline from "../components/charts/TrackRidgeline.astro";
-import ClassCaterpillar from "../components/charts/ClassCaterpillar.astro";
+import ClassCaterpillar from "../components/charts/ClassCaterpillar";
 import histograms from "../data/histograms.json";
+import aggregates from "../data/aggregates.json";
 import copy from "../data/copy.json";
 
 const c05 = copy["05"];
@@ -28,7 +29,7 @@ const c05c = copy["05c"];
 
   <h3 class="headline sub-headline" id="track-classes" style="margin-top:3rem">{c05c.headline}</h3>
   <p class="deck">{c05c.deck}</p>
-  <ClassCaterpillar />
+  <ClassCaterpillar client:visible rows={aggregates.by_class} />
   {c05c.body.map((p: string) => <p>{p}</p>)}
   <Caveat>{c05c.caveat}</Caveat>
 </Section>

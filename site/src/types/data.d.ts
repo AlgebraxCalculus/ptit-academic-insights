@@ -24,6 +24,9 @@ export interface Meta {
     track: string[];
     program: string[];
     major: string[];
+    /** track_program[i] = index into `program` for `track[i]` — derived from
+     * the actual data, not a name-prefix rule re-typed on the frontend. */
+    track_program: number[];
   };
 }
 

@@ -20,6 +20,9 @@ export default function EligibilityBars({ byTrack, byProgram, labels }: Props) {
   const width = 600;
   const rowHeight = 42;
   const padLeft = 110;
+  // Reserves enough room for the widest possible value label
+  // ("100.0% (n=328)") so it never gets clipped by the SVG's viewBox.
+  const padRight = 110;
 
   const trackRows = [...byTrack].sort((a, b) => b.eligible_pct - a.eligible_pct);
   const programRows = [
@@ -34,7 +37,7 @@ export default function EligibilityBars({ byTrack, byProgram, labels }: Props) {
 
   const height = rows.length * rowHeight + 20;
   const domainMin = 75;
-  const x = linearScale([domainMin, 100], [0, width - padLeft - 50]);
+  const x = linearScale([domainMin, 100], [0, width - padLeft - padRight]);
 
   return (
     <div class="eligibility-bars">
@@ -57,7 +60,7 @@ export default function EligibilityBars({ byTrack, byProgram, labels }: Props) {
             </g>
           );
         })}
-        <line x1={padLeft} y1={height - 6} x2={width - 50} y2={height - 6} stroke="var(--color-line-strong)" />
+        <line x1={padLeft} y1={height - 6} x2={width - padRight} y2={height - 6} stroke="var(--color-line-strong)" />
       </svg>
       <p class="footnote">⚠ Trục bắt đầu từ {domainMin}%, không từ 0%, để phân biệt các nhóm ở dải cao.</p>
 

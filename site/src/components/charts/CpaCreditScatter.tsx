@@ -47,18 +47,25 @@ export default function CpaCreditScatter({ overlapBand }: Props) {
           fill="var(--color-caveat-border)"
           opacity="0.12"
         />
-        {points.map((s, i) => (
-          <circle
-            key={i}
-            cx={x(s.credits!)}
-            cy={y(s.cpa!)}
-            r="2.6"
-            fill={s.eligible ? "var(--color-cntt)" : "var(--color-cntt-clc)"}
-            opacity="0.55"
-            onMouseEnter={() => setHover({ cpa: s.cpa!, credits: s.credits!, eligible: s.eligible, x: x(s.credits!), y: y(s.cpa!) })}
-            onMouseLeave={() => setHover(null)}
-          />
-        ))}
+        {points.map((s, i) => {
+          const cx = x(s.credits!);
+          const cy = y(s.cpa!);
+          return (
+            <g key={i}>
+              <circle cx={cx} cy={cy} r="2.6" fill={s.eligible ? "var(--color-cntt)" : "var(--color-cntt-clc)"} opacity="0.55" pointer-events="none" />
+              {/* Larger invisible hit area — the visible 2.6px dot is too
+                  small to reliably hover with a mouse among 900+ points. */}
+              <circle
+                cx={cx}
+                cy={cy}
+                r="6"
+                fill="transparent"
+                onMouseEnter={() => setHover({ cpa: s.cpa!, credits: s.credits!, eligible: s.eligible, x: cx, y: cy })}
+                onMouseLeave={() => setHover(null)}
+              />
+            </g>
+          );
+        })}
         <line x1={pad} y1={height - pad} x2={width - 10} y2={height - pad} stroke="var(--color-line-strong)" />
         <line x1={pad} y1={10} x2={pad} y2={height - pad} stroke="var(--color-line-strong)" />
         {[0, 50, 100, 146].map((t) => (

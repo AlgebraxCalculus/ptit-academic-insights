@@ -19,6 +19,16 @@ def _load_schema(name: str) -> dict:
 
 def build_meta(df, source_rows_total: int, source_sha256: str) -> dict:
     cohort = df["intake_year"].value_counts().sort_index().to_dict()
+
+    # Derived from the actual data (not re-typed here) so the frontend never
+    # needs its own track-name-prefix rule to know which program a track
+    # belongs to — one source of truth, per track index in TRACK_DICTIONARY.
+    track_to_program = df.groupby("track_label")["program"].unique()
+    assert track_to_program.apply(len).eq(1).all(), "a track maps to more than one program"
+    track_program = [
+        config.PROGRAM_DICTIONARY.index(track_to_program[t][0]) for t in config.TRACK_DICTIONARY
+    ]
+
     return {
         "generated_at": datetime.now(UTC).isoformat(),
         "pipeline_version": PIPELINE_VERSION,
@@ -37,6 +47,7 @@ def build_meta(df, source_rows_total: int, source_sha256: str) -> dict:
             "track": config.TRACK_DICTIONARY,
             "program": config.PROGRAM_DICTIONARY,
             "major": config.MAJOR_DICTIONARY,
+            "track_program": track_program,
         },
     }
 

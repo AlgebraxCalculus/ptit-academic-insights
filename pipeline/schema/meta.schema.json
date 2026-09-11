@@ -30,11 +30,12 @@
     },
     "dictionaries": {
       "type": "object",
-      "required": ["track", "program", "major"],
+      "required": ["track", "program", "major", "track_program"],
       "properties": {
         "track": { "type": "array", "items": { "type": "string" } },
         "program": { "type": "array", "items": { "type": "string" } },
-        "major": { "type": "array", "items": { "type": "string" } }
+        "major": { "type": "array", "items": { "type": "string" } },
+        "track_program": { "type": "array", "items": { "type": "integer" } }
       }
     }
   },

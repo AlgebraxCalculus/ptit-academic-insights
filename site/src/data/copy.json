@@ -158,6 +158,8 @@
     "resetLabel": "Đặt lại",
     "quickEstimateLabel": "ước lượng nhanh",
     "suppressedMessage": "Chỉ có {n} sinh viên khớp bộ lọc này. Trang không hiển thị nhóm dưới 10 người để bảo vệ quyền riêng tư.",
+    "emptyMessage": "Không có sinh viên nào khớp bộ lọc này. Thử nới rộng khoảng CPA hoặc bỏ bớt điều kiện lọc.",
+    "advancedFiltersLabel": "Thêm bộ lọc",
     "smallSampleMessage": "Cỡ mẫu nhỏ — khoảng tin cậy sẽ rộng hơn bình thường.",
     "classOverlayNote": "Các lớp trong cùng chuyên ngành không khác biệt có ý nghĩa thống kê (xem phần trên).",
     "caveat": "Lọc ra được một nhóm không có nghĩa là bạn vừa tìm ra một phát hiện. Càng nhiều điều kiện lọc, càng dễ vô tình bắt trúng một chênh lệch ngẫu nhiên. Mọi con số ở đây chỉ mô tả nhóm đã lọc — không phải bằng chứng về nguyên nhân."

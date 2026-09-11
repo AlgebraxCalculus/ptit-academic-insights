@@ -20,6 +20,10 @@ import { fmtCpa, fmtPct, majorLabel } from "../../lib/format";
 // shared Vite chunk instead of a prop serialized into the page HTML twice.
 const rows = rowsPayload as RowsPayload;
 
+const CPA_MIN = 1.4;
+const CPA_MAX = 3.8;
+const CPA_STEP = 0.05;
+
 interface Props {
   meta: Meta;
   byClass: Aggregates["by_class"];
@@ -29,8 +33,10 @@ interface Props {
     resetLabel: string;
     quickEstimateLabel: string;
     suppressedMessage: string;
+    emptyMessage: string;
     smallSampleMessage: string;
     classOverlayNote: string;
+    advancedFiltersLabel: string;
     caveat: string;
   };
 }
@@ -62,10 +68,58 @@ function writeParams(params: Record<string, string>) {
   window.history.replaceState(null, "", url + "#explore");
 }
 
+/** A single visual track with two draggable handles — kéo để chọn khoảng
+ * CPA, thay cho hai thanh trượt rời rạc trước đây. */
+function CpaRangeSlider({
+  min,
+  max,
+  onChange,
+}: {
+  min: number;
+  max: number;
+  onChange: (min: number, max: number) => void;
+}) {
+  const leftPct = ((min - CPA_MIN) / (CPA_MAX - CPA_MIN)) * 100;
+  const rightPct = ((max - CPA_MIN) / (CPA_MAX - CPA_MIN)) * 100;
+  // Bring whichever thumb is further along its half of the track to the
+  // front, so the two overlapping <input>s both stay grabbable near the
+  // middle of the range.
+  const minOnTop = min > (CPA_MIN + CPA_MAX) / 2;
+
+  return (
+    <div class="cpa-slider">
+      <div class="cpa-slider__track" />
+      <div class="cpa-slider__fill" style={{ left: `${leftPct}%`, right: `${100 - rightPct}%` }} />
+      <input
+        type="range"
+        min={CPA_MIN}
+        max={CPA_MAX}
+        step={CPA_STEP}
+        value={min}
+        style={{ zIndex: minOnTop ? 3 : 2 }}
+        aria-label="CPA tối thiểu"
+        onInput={(e) => onChange(Math.min(Number((e.target as HTMLInputElement).value), max - CPA_STEP), max)}
+      />
+      <input
+        type="range"
+        min={CPA_MIN}
+        max={CPA_MAX}
+        step={CPA_STEP}
+        value={max}
+        style={{ zIndex: minOnTop ? 2 : 3 }}
+        aria-label="CPA tối đa"
+        onInput={(e) => onChange(min, Math.max(Number((e.target as HTMLInputElement).value), min + CPA_STEP))}
+      />
+    </div>
+  );
+}
+
 export default function ExplorePanel({ meta, byClass, overallHistogram, copy }: Props) {
   const students = useMemo(() => decodeRows(rows), [rows]);
   const trackNames = meta.dictionaries.track;
   const majorNames = meta.dictionaries.major;
+  const programNames = meta.dictionaries.program;
+  const trackProgram = meta.dictionaries.track_program;
 
   const initial = readParams();
   const [program, setProgram] = useState(initial.get("program") ?? "all");
@@ -73,8 +127,8 @@ export default function ExplorePanel({ meta, byClass, overallHistogram, copy }: 
   const [eligibility, setEligibility] = useState(initial.get("elig") ?? "all");
   const [creditBucket, setCreditBucket] = useState(initial.get("credits") ?? "all");
   const [selectedMajors, setSelectedMajors] = useState<Set<string>>(new Set(ELIGIBLE_MAJORS));
-  const [cpaMin, setCpaMin] = useState(1.4);
-  const [cpaMax, setCpaMax] = useState(3.8);
+  const [cpaMin, setCpaMin] = useState(CPA_MIN);
+  const [cpaMax, setCpaMax] = useState(CPA_MAX);
   const [overlayClass, setOverlayClass] = useState("none");
 
   useEffect(() => {
@@ -86,9 +140,8 @@ export default function ExplorePanel({ meta, byClass, overallHistogram, copy }: 
     return students.filter((s) => {
       const tName = trackNames[s.track];
       const mName = majorNames[s.major];
-      const isClc = tName.startsWith("E22");
-      if (program === "CNTT" && isClc) return false;
-      if (program === "CNTT CLC" && !isClc) return false;
+      const sProgram = programNames[trackProgram[s.track]];
+      if (program !== "all" && sProgram !== program) return false;
       if (track !== "all" && tName !== track) return false;
       if (eligibility === "eligible" && !s.eligible) return false;
       if (eligibility === "ineligible" && s.eligible) return false;
@@ -97,10 +150,11 @@ export default function ExplorePanel({ meta, byClass, overallHistogram, copy }: 
       if (s.cpa !== null && (s.cpa < cpaMin || s.cpa > cpaMax)) return false;
       return true;
     });
-  }, [students, program, track, eligibility, creditBucket, selectedMajors, cpaMin, cpaMax, trackNames, majorNames]);
+  }, [students, program, track, eligibility, creditBucket, selectedMajors, cpaMin, cpaMax, trackNames, majorNames, programNames, trackProgram]);
 
   const stats = quickStats(filtered);
   const suppressed = isSuppressed(stats.n);
+  const empty = stats.n === 0;
   const small = isSmallSample(stats.n);
 
   const cpaValues = filtered.map((s) => s.cpa).filter((v): v is number => v !== null);
@@ -122,8 +176,8 @@ export default function ExplorePanel({ meta, byClass, overallHistogram, copy }: 
     setEligibility("all");
     setCreditBucket("all");
     setSelectedMajors(new Set(ELIGIBLE_MAJORS));
-    setCpaMin(1.4);
-    setCpaMax(3.8);
+    setCpaMin(CPA_MIN);
+    setCpaMax(CPA_MAX);
     setOverlayClass("none");
   }
 
@@ -133,85 +187,97 @@ export default function ExplorePanel({ meta, byClass, overallHistogram, copy }: 
         <p>{copy.caveat}</p>
       </div>
 
-      <div class="filters">
-        <label>
-          {copy.filters.program}
-          <select value={program} onChange={(e) => setProgram((e.target as HTMLSelectElement).value)}>
-            <option value="all">Tất cả</option>
-            <option value="CNTT">CNTT</option>
-            <option value="CNTT CLC">CNTT CLC</option>
-          </select>
-        </label>
-
-        <label>
-          {copy.filters.track}
-          <select value={track} onChange={(e) => setTrack((e.target as HTMLSelectElement).value)}>
-            <option value="all">Tất cả</option>
-            {trackNames.map((t) => (
-              <option key={t} value={t}>{t}</option>
+      <div class="filters-primary">
+        <div class="filter-field">
+          <span class="filter-field__label">{copy.filters.program}</span>
+          <div class="segmented" role="group" aria-label={copy.filters.program}>
+            {(["all", "CNTT", "CNTT CLC"] as const).map((p) => (
+              <button key={p} type="button" class={program === p ? "active" : ""} onClick={() => setProgram(p)}>
+                {p === "all" ? "Tất cả" : p}
+              </button>
             ))}
-          </select>
-        </label>
-
-        <label>
-          {copy.filters.eligibility}
-          <select value={eligibility} onChange={(e) => setEligibility((e.target as HTMLSelectElement).value)}>
-            <option value="all">Tất cả</option>
-            <option value="eligible">Đủ điều kiện</option>
-            <option value="ineligible">Không đủ điều kiện</option>
-          </select>
-        </label>
-
-        <label>
-          {copy.filters.creditBucket}
-          <select value={creditBucket} onChange={(e) => setCreditBucket((e.target as HTMLSelectElement).value)}>
-            {CREDIT_BUCKETS.map((b) => (
-              <option key={b.id} value={b.id}>{b.label}</option>
-            ))}
-          </select>
-        </label>
-
-        <fieldset class="major-filter">
-          <legend>{copy.filters.major}</legend>
-          {ELIGIBLE_MAJORS.map((m) => (
-            <label class="checkbox-label" key={m}>
-              <input
-                type="checkbox"
-                checked={selectedMajors.has(m)}
-                onChange={(e) => {
-                  const next = new Set(selectedMajors);
-                  if ((e.target as HTMLInputElement).checked) next.add(m);
-                  else next.delete(m);
-                  setSelectedMajors(next);
-                }}
-              />
-              {majorLabel(m)}
-            </label>
-          ))}
-        </fieldset>
-
-        <div class="cpa-range">
-          <span>{copy.filters.cpaRange}: {fmtCpa(cpaMin)} – {fmtCpa(cpaMax)}</span>
-          <input type="range" min="1.4" max="3.8" step="0.05" value={cpaMin} onInput={(e) => setCpaMin(Math.min(Number((e.target as HTMLInputElement).value), cpaMax - 0.05))} />
-          <input type="range" min="1.4" max="3.8" step="0.05" value={cpaMax} onInput={(e) => setCpaMax(Math.max(Number((e.target as HTMLInputElement).value), cpaMin + 0.05))} />
+          </div>
         </div>
 
-        <label>
-          Xem lớp của bạn (chỉ hiển thị điểm trung bình)
-          <select value={overlayClass} onChange={(e) => setOverlayClass((e.target as HTMLSelectElement).value)}>
-            <option value="none">— không chọn —</option>
-            {byClass.map((c) => (
-              <option key={c.class} value={c.class}>{c.class}</option>
-            ))}
-          </select>
-        </label>
+        <div class="filter-field filter-field--wide">
+          <span class="filter-field__label">
+            {copy.filters.cpaRange}: <strong>{fmtCpa(cpaMin)} – {fmtCpa(cpaMax)}</strong>
+          </span>
+          <CpaRangeSlider min={cpaMin} max={cpaMax} onChange={(lo, hi) => { setCpaMin(lo); setCpaMax(hi); }} />
+        </div>
 
-        <button type="button" class="link-toggle" onClick={reset}>{copy.resetLabel}</button>
+        <button type="button" class="link-toggle reset-btn" onClick={reset}>{copy.resetLabel}</button>
       </div>
+
+      <details class="advanced-filters">
+        <summary>{copy.advancedFiltersLabel}</summary>
+        <div class="filters">
+          <label>
+            {copy.filters.track}
+            <select value={track} onChange={(e) => setTrack((e.target as HTMLSelectElement).value)}>
+              <option value="all">Tất cả</option>
+              {trackNames.map((t) => (
+                <option key={t} value={t}>{t}</option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            {copy.filters.eligibility}
+            <select value={eligibility} onChange={(e) => setEligibility((e.target as HTMLSelectElement).value)}>
+              <option value="all">Tất cả</option>
+              <option value="eligible">Đủ điều kiện</option>
+              <option value="ineligible">Không đủ điều kiện</option>
+            </select>
+          </label>
+
+          <label>
+            {copy.filters.creditBucket}
+            <select value={creditBucket} onChange={(e) => setCreditBucket((e.target as HTMLSelectElement).value)}>
+              {CREDIT_BUCKETS.map((b) => (
+                <option key={b.id} value={b.id}>{b.label}</option>
+              ))}
+            </select>
+          </label>
+
+          <fieldset class="major-filter">
+            <legend>{copy.filters.major}</legend>
+            {ELIGIBLE_MAJORS.map((m) => (
+              <label class="checkbox-label" key={m}>
+                <input
+                  type="checkbox"
+                  checked={selectedMajors.has(m)}
+                  onChange={(e) => {
+                    const next = new Set(selectedMajors);
+                    if ((e.target as HTMLInputElement).checked) next.add(m);
+                    else next.delete(m);
+                    setSelectedMajors(next);
+                  }}
+                />
+                {majorLabel(m)}
+              </label>
+            ))}
+          </fieldset>
+
+          <label>
+            Xem lớp của bạn (chỉ hiển thị điểm trung bình)
+            <select value={overlayClass} onChange={(e) => setOverlayClass((e.target as HTMLSelectElement).value)}>
+              <option value="none">— không chọn —</option>
+              {byClass.map((c) => (
+                <option key={c.class} value={c.class}>{c.class}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+      </details>
 
       {overlayClass !== "none" && <p class="footnote">{copy.classOverlayNote}</p>}
 
-      {suppressed ? (
+      {empty ? (
+        <div class="empty-state" role="status">
+          <p>{copy.emptyMessage}</p>
+        </div>
+      ) : suppressed ? (
         <div class="caveat caveat--critical" role="status">
           <p>{copy.suppressedMessage.replace("{n}", String(stats.n))}</p>
         </div>
@@ -259,13 +325,65 @@ export default function ExplorePanel({ meta, byClass, overallHistogram, copy }: 
 
       <style>{`
         .explore-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+        .filters-primary {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: end;
+          gap: 1.5rem 2rem;
+        }
+        .filter-field { display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.85rem; color: var(--color-muted); }
+        .filter-field__label { font-size: 0.85rem; color: var(--color-muted); }
+        .filter-field--wide { flex: 1 1 260px; min-width: 220px; }
+        .reset-btn { margin-inline-start: auto; }
+
+        .segmented { display: inline-flex; border: 1px solid var(--color-line-strong); border-radius: 999px; overflow: hidden; }
+        .segmented button {
+          padding: 0.45rem 1rem; border: none; background: var(--color-surface); color: var(--color-muted); font-size: 0.9rem;
+        }
+        .segmented button.active { background: var(--color-cntt); color: white; }
+
+        .cpa-slider { position: relative; height: 28px; }
+        .cpa-slider__track, .cpa-slider__fill {
+          position: absolute; top: 50%; height: 4px; transform: translateY(-50%); border-radius: 2px;
+        }
+        .cpa-slider__track { left: 0; right: 0; background: var(--color-line-strong); }
+        .cpa-slider__fill { background: var(--color-cntt); }
+        .cpa-slider input[type="range"] {
+          position: absolute; inset: 0; width: 100%; margin: 0; background: transparent;
+          -webkit-appearance: none; appearance: none; pointer-events: none;
+        }
+        .cpa-slider input[type="range"]::-webkit-slider-runnable-track { background: transparent; }
+        .cpa-slider input[type="range"]::-moz-range-track { background: transparent; }
+        .cpa-slider input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none; pointer-events: auto;
+          width: 18px; height: 18px; border-radius: 50%;
+          background: var(--color-cntt); border: 2px solid var(--color-surface);
+          box-shadow: 0 1px 3px rgba(0,0,0,0.3); cursor: pointer;
+          margin-top: 0;
+        }
+        .cpa-slider input[type="range"]::-moz-range-thumb {
+          pointer-events: auto; width: 14px; height: 14px; border-radius: 50%;
+          background: var(--color-cntt); border: 2px solid var(--color-surface);
+          box-shadow: 0 1px 3px rgba(0,0,0,0.3); cursor: pointer;
+        }
+
+        .advanced-filters { border-top: 1px solid var(--color-line); padding-top: 0.75rem; }
+        .advanced-filters summary { cursor: pointer; color: var(--color-muted); font-size: 0.88rem; padding: 0.25rem 0; }
+        .advanced-filters .filters { margin-top: 1rem; }
+
         .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; align-items: end; }
         .filters label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; color: var(--color-muted); }
         .filters select { padding: 0.4rem; border-radius: 4px; border: 1px solid var(--color-line-strong); background: var(--color-surface); color: var(--color-ink); }
         .major-filter { border: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.2rem; }
         .major-filter legend { font-size: 0.85rem; color: var(--color-muted); padding: 0; }
         .checkbox-label { flex-direction: row !important; align-items: center; gap: 0.4rem !important; font-size: 0.85rem; }
-        .cpa-range { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.85rem; color: var(--color-muted); grid-column: span 2; }
+
+        .empty-state {
+          border: 1px dashed var(--color-line-strong); border-radius: var(--radius);
+          padding: 1.5rem; text-align: center; color: var(--color-muted); font-size: 0.92rem;
+        }
+
         .summary-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 1rem; margin: 0; }
         .summary-row dt { font-size: 0.78rem; color: var(--color-muted); }
         .summary-row dd { margin: 0.15rem 0 0; font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; }
