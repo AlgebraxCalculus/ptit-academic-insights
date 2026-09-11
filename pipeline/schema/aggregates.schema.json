@@ -4,7 +4,8 @@
   "type": "object",
   "required": [
     "overall", "bands", "by_track", "by_class", "program_comparison",
-    "variance_explained", "track_contrast", "eligibility", "composition"
+    "variance_explained", "track_contrast", "eligibility", "composition",
+    "birthplace_bands"
   ],
   "properties": {
     "overall": { "type": "object", "required": ["n", "mean", "median", "sd", "iqr", "percentiles"] },
@@ -35,6 +36,30 @@
     "variance_explained": { "type": "array", "minItems": 1 },
     "track_contrast": { "type": "object", "required": ["cnpm_vs_httt", "class_homogeneity"] },
     "eligibility": { "type": "object", "required": ["overall", "by_program", "by_track_chi2", "cpa_contrast"] },
-    "composition": { "type": "object", "required": ["by_program", "it_vs_telecom"] }
+    "composition": { "type": "object", "required": ["by_program", "it_vs_telecom"] },
+    "birthplace_bands": {
+      "type": "object",
+      "required": ["bands", "min_province_n", "min_cell_n"],
+      "properties": {
+        "bands": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["band", "n", "provinces", "other_n", "other_pct"],
+            "properties": {
+              "provinces": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["province", "n", "pct_of_band", "pct_of_province"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

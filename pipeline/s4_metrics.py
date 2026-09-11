@@ -306,6 +306,62 @@ def compute_composition(df: pd.DataFrame) -> dict:
     }
 
 
+def compute_birthplace_bands(df: pd.DataFrame) -> dict:
+    """Count of students per (CPA band x birthplace), for "which provinces
+    are biggest in each CPA band" (docs/insight-discovery.md). Two-level
+    suppression: a province only appears at all with n>=20 overall (same
+    floor as birthplace_n20plus/composition-by-major), and even then only in
+    a specific band if its count there is >=10 — everything else folds into
+    that band's "other" total, which carries no cell-level risk since it's
+    always a sum over many small groups.
+    """
+    sub = df[df["cpa"].notna()].copy()
+    sub["band3"] = sub["cpa"].apply(thresholds.band3_of)
+
+    province_totals = sub["birthplace"].value_counts()
+    big_provinces = set(province_totals[province_totals >= MIN_N_FOR_GROUP_MEAN].index)
+
+    bands = []
+    for label, _, _ in thresholds.BIRTHPLACE_CPA_BANDS:
+        band_df = sub[sub["band3"] == label]
+        band_total = len(band_df)
+        counts = band_df["birthplace"].value_counts()
+
+        provinces = []
+        shown_n = 0
+        for prov, n in counts.items():
+            if prov not in big_provinces or n < config.MIN_GROUP_SIZE:
+                continue
+            n = int(n)
+            provinces.append(
+                {
+                    "province": prov,
+                    "n": n,
+                    "pct_of_band": round(100 * n / band_total, 1),
+                    "pct_of_province": round(100 * n / int(province_totals[prov]), 1),
+                }
+            )
+            shown_n += n
+        provinces.sort(key=lambda p: -p["n"])
+
+        other_n = band_total - shown_n
+        bands.append(
+            {
+                "band": label,
+                "n": band_total,
+                "provinces": provinces,
+                "other_n": other_n,
+                "other_pct": round(100 * other_n / band_total, 1) if band_total else 0.0,
+            }
+        )
+
+    return {
+        "bands": bands,
+        "min_province_n": MIN_N_FOR_GROUP_MEAN,
+        "min_cell_n": config.MIN_GROUP_SIZE,
+    }
+
+
 def compute_histograms(df: pd.DataFrame) -> dict:
     edges, overall_counts = distribution.histogram(df["cpa"])
     by_program = {}
@@ -337,4 +393,5 @@ def compute_all(df: pd.DataFrame) -> dict:
         "track_contrast": compute_track_contrast(df),
         "eligibility": compute_eligibility(df),
         "composition": compute_composition(df),
+        "birthplace_bands": compute_birthplace_bands(df),
     }

@@ -8,3 +8,4 @@
 - P6 PASS — 49.5% of rows unique on shipped fields (ceiling 55%)
 - P7 PASS — no ineligible-by-class breakdown published
 - P8 PASS — meta.json contains no paths or personal names
+- P9 PASS — every published birthplace-band cell has n >= 10

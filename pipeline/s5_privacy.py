@@ -122,6 +122,18 @@ def _check_meta_clean(meta: dict) -> str:
     return "P8 PASS — meta.json contains no paths or personal names"
 
 
+def _check_birthplace_bands(aggregates: dict) -> str:
+    bp = aggregates["birthplace_bands"]
+    violations = []
+    for band in bp["bands"]:
+        for prov in band["provinces"]:
+            if prov["n"] < bp["min_cell_n"]:
+                violations.append(f"{band['band']}/{prov['province']} n={prov['n']}")
+    if violations:
+        raise PrivacyViolation(f"P9 FAILED — birthplace_bands cells below min_cell_n: {violations}")
+    return f"P9 PASS — every published birthplace-band cell has n >= {bp['min_cell_n']}"
+
+
 def run_privacy_gate(df: pd.DataFrame, aggregates: dict, meta: dict) -> tuple[dict, list[str]]:
     payload = build_rows_payload(df)
     report = [
@@ -133,6 +145,7 @@ def run_privacy_gate(df: pd.DataFrame, aggregates: dict, meta: dict) -> tuple[di
         _check_k_anonymity(df),
         _check_no_ineligible_by_class(aggregates),
         _check_meta_clean(meta),
+        _check_birthplace_bands(aggregates),
     ]
     return payload, report
 

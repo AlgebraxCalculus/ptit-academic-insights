@@ -1,0 +1,93 @@
+---
+/**
+ * V-06b — for each CPA band, which birthplace provinces have the most
+ * students in it. docs/insight-discovery.md (CPA by birthplace).
+ *
+ * Each bar shows count + share of the band (main label) and that
+ * province's own share landing in this band (muted, in parentheses) — the
+ * two numbers a reader needs to not conflate "biggest raw count" with
+ * "over-represented", since the former is mostly driven by how many
+ * students a province sends in total.
+ */
+import aggregates from "../../data/aggregates.json";
+import DataTable from "../layout/DataTable.astro";
+import { xScale } from "../../lib/svg";
+
+const bp = aggregates.birthplace_bands;
+const width = 640;
+const rowHeight = 26;
+const labelWidth = 130;
+const padRight = 100;
+const barAreaWidth = width - labelWidth - padRight;
+---
+<div class="province-by-band">
+  {bp.bands.map((band) => {
+    const rows = [...band.provinces, { province: "Khác", n: band.other_n, pct_of_band: band.other_pct, pct_of_province: null }];
+    const height = rows.length * rowHeight + 10;
+    const xs = xScale([0, Math.max(...rows.map((r) => r.n))], barAreaWidth, 0);
+    return (
+      <figure>
+        <h4>{band.band} <span class="band-n">(n={band.n})</span></h4>
+        <svg
+          viewBox={`0 0 ${width} ${height}`}
+          role="img"
+          aria-label={`Số sinh viên theo tỉnh trong dải CPA ${band.band}, tỉnh nhiều nhất là ${band.provinces[0]?.province ?? "—"} với ${band.provinces[0]?.n ?? 0} người.`}
+        >
+          {rows.map((r, i) => {
+            const y = i * rowHeight + 6;
+            const isOther = r.province === "Khác";
+            return (
+              <g>
+                <text x={labelWidth - 8} y={y + 14} font-size="12" text-anchor="end" fill={isOther ? "var(--color-faint)" : "var(--color-ink)"}>{r.province}</text>
+                <rect x={labelWidth} y={y} width={xs(r.n)} height={18} fill={isOther ? "var(--color-line-strong)" : "var(--color-cntt)"} opacity={isOther ? 0.7 : 0.85} />
+                <text x={labelWidth + xs(r.n) + 8} y={y + 14} font-size="12" fill="var(--color-ink)">
+                  {r.n} ({r.pct_of_province !== null ? r.pct_of_province : r.pct_of_band}%)
+                </text>
+              </g>
+            );
+          })}
+        </svg>
+      </figure>
+    );
+  })}
+
+  <figcaption>
+    Số trong ngoặc là % sinh viên CHÍNH tỉnh đó rơi vào dải này (với "Khác" thì là % của cả dải) — con số này mới nói lên tỷ trọng, còn độ dài cột chủ yếu phản ánh tỉnh nào gửi nhiều sinh viên đến trường hơn. Xem đầy đủ cả hai cách tính (% của dải và % của tỉnh) trong bảng dữ liệu.
+    Chỉ tỉnh có ít nhất {bp.min_province_n} sinh viên trong toàn bộ dữ liệu, và ít nhất {bp.min_cell_n} sinh viên trong chính dải đó, mới được liệt kê riêng — còn lại gộp vào "Khác".
+  </figcaption>
+
+  <DataTable headers={["Dải CPA", "Tỉnh", "n", "% của dải", "% của tỉnh"]}>
+    {bp.bands.flatMap((band) =>
+      band.provinces.map((p) => (
+        <tr>
+          <td>{band.band}</td>
+          <td>{p.province}</td>
+          <td>{p.n}</td>
+          <td>{p.pct_of_band}%</td>
+          <td>{p.pct_of_province}%</td>
+        </tr>
+      ))
+    )}
+  </DataTable>
+</div>
+
+<style>
+  .province-by-band {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .province-by-band figure {
+    margin: 0;
+  }
+  h4 {
+    font-size: 0.95rem;
+    margin: 0 0 0.6rem;
+    color: var(--color-ink);
+  }
+  .band-n {
+    font-weight: 400;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+  }
+</style>

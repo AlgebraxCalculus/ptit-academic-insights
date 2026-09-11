@@ -10,6 +10,7 @@
     { "id": "program", "label": "So sánh chương trình" },
     { "id": "track", "label": "Cấu trúc chuyên ngành" },
     { "id": "composition", "label": "Thành phần" },
+    { "id": "birthplace", "label": "Nơi sinh" },
     { "id": "eligibility", "label": "Điều kiện ĐATN" },
     { "id": "explore", "label": "Tự khám phá" },
     { "id": "methodology", "label": "Phương pháp" },
@@ -124,6 +125,16 @@
     ],
     "caveat": "Các nhóm dưới 20 sinh viên không hiển thị điểm trung bình riêng và không được đưa vào so sánh — dù vậy bảng thành phần vẫn tính đủ để tổng khớp với số sinh viên thật.",
     "altText": "Hai thanh ngang xếp chồng thể hiện thành phần mã ngành tuyển sinh của CNTT (100% một màu) và CNTT CLC (chia thành nhiều mảng: Viễn thông 44.7%, Điện tử 23.3%, An toàn thông tin 15.8%, CNTT 13.5%)."
+  },
+  "06b": {
+    "headline": "Hà Nội đông nhất ở mọi dải CPA — vì Hà Nội vốn đông nhất trong cả tập dữ liệu",
+    "deck": "Nhìn theo số lượng tuyệt đối dễ gây hiểu lầm. Tính theo tỷ trọng trong chính tỉnh mình thì bức tranh khác hẳn.",
+    "body": [
+      "Ở cả ba dải điểm, Hà Nội luôn là tỉnh có nhiều sinh viên nhất — không có gì bất ngờ, vì Hà Nội cũng là nơi sinh của đông sinh viên nhất trong toàn bộ dữ liệu (244 trong số 903 người). Đông nhất về số lượng không đồng nghĩa với nổi bật hơn.",
+      "Tính theo tỷ trọng trong chính tỉnh mình thì khác: 29.5% sinh viên quê Hà Nội rơi vào dải Giỏi trở lên, chỉ 12.3% rơi vào dải Dưới trung bình. Ngược lại, một số tỉnh như Nam Định, Phú Thọ, Bắc Giang lại có 33–41% sinh viên của mình nằm trong dải Dưới trung bình.",
+      "Dataset này không có thông tin gì về hoàn cảnh gia đình, chất lượng trường phổ thông hay điều kiện ôn thi — những yếu tố nhiều khả năng gắn với nơi sinh hơn là bản thân nơi sinh quyết định điều gì. Vì vậy đừng đọc con số này thành \"sinh viên tỉnh nào giỏi hơn tỉnh nào\" — đó không phải điều dữ liệu này chứng minh được."
+    ],
+    "caveat": "Khác biệt tỷ trọng giữa các tỉnh có thể đến từ rất nhiều yếu tố ngoài tầm dữ liệu này — không phải bằng chứng cho thấy sinh viên tỉnh này học tốt hơn tỉnh khác."
   },
   "07": {
     "headline": "99.4% sinh viên CNPM đủ điều kiện làm đồ án. Ở HTTT là 83.5%.",

@@ -48,7 +48,7 @@ def test_rows_payload_excludes_identifiers(scoped_df):
 
 def test_full_gate_passes_on_current_data(scoped_df, aggregates, meta):
     payload, report = s5_privacy.run_privacy_gate(scoped_df, aggregates, meta)
-    assert len(report) == 8
+    assert len(report) == 9
     assert all("PASS" in line for line in report)
     assert payload["n"] == 905
 

@@ -1,0 +1,15 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import Caveat from "../components/layout/Caveat.astro";
+import ProvinceByBand from "../components/charts/ProvinceByBand.astro";
+import copy from "../data/copy.json";
+
+const c = copy["06b"];
+---
+<Section id="birthplace" label="Nơi sinh">
+  <Headline id="birthplace" text={c.headline} deck={c.deck} />
+  <ProvinceByBand />
+  {c.body.map((p: string) => <p>{p}</p>)}
+  <Caveat critical>{c.caveat}</Caveat>
+</Section>

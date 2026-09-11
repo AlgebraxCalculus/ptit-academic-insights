@@ -226,6 +226,27 @@ export interface Composition {
   };
 }
 
+export interface BirthplaceBandProvince {
+  province: string;
+  n: number;
+  pct_of_band: number;
+  pct_of_province: number;
+}
+
+export interface BirthplaceBand {
+  band: string;
+  n: number;
+  provinces: BirthplaceBandProvince[];
+  other_n: number;
+  other_pct: number;
+}
+
+export interface BirthplaceBands {
+  bands: BirthplaceBand[];
+  min_province_n: number;
+  min_cell_n: number;
+}
+
 export interface Aggregates {
   overall: OverallStats;
   bands: { classification: Band[]; cumulative: CumulativeThreshold[] };
@@ -236,6 +257,7 @@ export interface Aggregates {
   track_contrast: TrackContrast;
   eligibility: Eligibility;
   composition: Composition;
+  birthplace_bands: BirthplaceBands;
 }
 
 export interface Histograms {

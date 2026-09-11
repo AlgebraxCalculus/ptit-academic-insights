@@ -148,3 +148,34 @@ def test_small_admission_majors_have_no_mean(aggregates):
 def test_no_class_falls_below_min_group_size(aggregates):
     assert all(c["n"] >= 10 for c in aggregates["by_class"])
     assert all(t["n_rows"] >= 10 for t in aggregates["by_track"])
+
+
+# --- CPA by birthplace band --------------------------------------------------------
+
+def test_birthplace_bands_cover_everyone_with_a_cpa(aggregates):
+    bp = aggregates["birthplace_bands"]
+    assert sum(b["n"] for b in bp["bands"]) == aggregates["overall"]["n"]
+
+
+def test_birthplace_band_cells_never_below_privacy_floor(aggregates):
+    bp = aggregates["birthplace_bands"]
+    for band in bp["bands"]:
+        assert all(p["n"] >= bp["min_cell_n"] for p in band["provinces"])
+
+
+def test_birthplace_band_shown_provinces_plus_other_equals_band_total(aggregates):
+    bp = aggregates["birthplace_bands"]
+    for band in bp["bands"]:
+        assert sum(p["n"] for p in band["provinces"]) + band["other_n"] == band["n"]
+
+
+def test_hanoi_dominates_the_top_band_by_count_not_by_representation(aggregates):
+    """Hà Nội has the most students in "Giỏi trở lên" (72 of 177) simply
+    because it's the biggest source province overall (244 of 903) — its
+    share of its OWN students there (29.5%) is unremarkable next to Hưng
+    Yên's 30.3% from a much smaller base (n=33). Pins the exact distinction
+    the insight's wording depends on: count dominance != higher standing."""
+    top_band = next(b for b in aggregates["birthplace_bands"]["bands"] if b["band"] == "Giỏi trở lên")
+    by_province = {p["province"]: p for p in top_band["provinces"]}
+    assert by_province["Hà Nội"]["n"] == max(p["n"] for p in top_band["provinces"])
+    assert by_province["Hà Nội"]["pct_of_province"] < by_province["Hưng Yên"]["pct_of_province"]

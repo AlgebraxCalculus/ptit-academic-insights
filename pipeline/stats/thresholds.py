@@ -15,6 +15,24 @@ CLASSIFICATION_BANDS = [
 
 DEFAULT_CUMULATIVE_THRESHOLDS = (2.0, 2.5, 3.0, 3.2, 3.5, 3.6)
 
+# Coarsened version of CLASSIFICATION_BANDS (same 2.5/3.2 cut points, Yếu+Trung
+# bình merged and Giỏi+Xuất sắc merged) — the 5-way split leaves 0-1 provinces
+# with enough students per band to show individually; this 3-way split is the
+# finest cut that still clears a n>=10 per-cell privacy floor across all three
+# bands (docs/insight-discovery.md — CPA by birthplace).
+BIRTHPLACE_CPA_BANDS = [
+    ("Dưới trung bình", 0.0, 2.50),
+    ("Khá", 2.50, 3.20),
+    ("Giỏi trở lên", 3.20, 4.01),
+]
+
+
+def band3_of(value: float, bands=BIRTHPLACE_CPA_BANDS) -> str:
+    for label, lo, hi in bands:
+        if lo <= value < hi:
+            return label
+    raise ValueError(f"CPA {value} outside all bands")
+
 
 def threshold_bands(values, bands=CLASSIFICATION_BANDS) -> list[dict]:
     x = np.asarray(values, dtype=float)
