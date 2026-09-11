@@ -21,7 +21,11 @@ const { title = copy.site.title, description = copy.site.tagline } = Astro.props
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'none'" />
+    {/* script-src hashes are filled in post-build by scripts/inject-csp.mjs — Astro emits
+       a few tiny inline scripts (client:visible/client:idle hydration triggers, SectionNav)
+       that 'self' alone can't allow without 'unsafe-inline'. frame-ancestors is set as a
+       real header instead (vercel.json) since it's a no-op in a <meta> CSP. */}
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' __INLINE_SCRIPT_HASHES__; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; base-uri 'none'" />
   </head>
   <body>
     <slot />

@@ -24,18 +24,14 @@ interface Props {
 
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  // Visible by default — content must never depend on JS to become visible.
+  // The scroll-triggered fade is a progressive enhancement only.
+  const [visible, setVisible] = useState(true);
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) {
-      setVisible(true);
-      return;
-    }
     const el = ref.current;
-    if (!el || !("IntersectionObserver" in window)) {
-      setVisible(true);
-      return;
-    }
+    if (prefersReduced || !el || !("IntersectionObserver" in window)) return;
+    setVisible(false);
     const obs = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -46,7 +42,13 @@ function useReveal() {
       { threshold: 0.3 }
     );
     obs.observe(el);
-    return () => obs.disconnect();
+    // Safety net: never leave content permanently hidden if the observer
+    // never fires for some reason.
+    const fallback = window.setTimeout(() => setVisible(true), 2500);
+    return () => {
+      obs.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
   return { ref, visible };
 }
