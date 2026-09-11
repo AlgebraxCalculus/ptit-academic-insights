@@ -49,14 +49,20 @@ export default function EligibilityBars({ byTrack, byProgram, labels }: Props) {
       <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Biểu đồ cột tỷ lệ đủ điều kiện làm đồ án theo 5 chuyên ngành, D22CNPM cao nhất ở 99.4%, D22HTTT thấp nhất ở 83.5%.">
         {rows.map((r, i) => {
           const y = i * rowHeight + 10;
+          // The CI's upper bound can sit further right than the bar itself
+          // (these are proportions near 100%, so the interval is skewed) —
+          // the label has to clear whichever one extends furthest, not just
+          // the bar, or it ends up printed on top of the CI line.
+          const barEnd = x(r.pct);
+          const rightmost = r.ci ? Math.max(barEnd, x(r.ci[1])) : barEnd;
           return (
             <g key={r.label}>
               <text x={padLeft - 10} y={y + 18} font-size="12.5" text-anchor="end" fill="var(--color-ink)">{r.label}</text>
-              <rect x={padLeft} y={y} width={x(r.pct)} height={22} fill={r.color} />
+              <rect x={padLeft} y={y} width={barEnd} height={22} fill={r.color} />
               {r.ci && (
                 <line x1={padLeft + x(r.ci[0])} y1={y + 11} x2={padLeft + x(r.ci[1])} y2={y + 11} stroke="var(--color-ink)" stroke-width="1.5" opacity="0.5" />
               )}
-              <text x={padLeft + x(r.pct) + 8} y={y + 17} font-size="12" font-weight="600">{r.pct.toFixed(1)}% (n={r.n})</text>
+              <text x={padLeft + rightmost + 10} y={y + 17} font-size="12" font-weight="600">{r.pct.toFixed(1)}% (n={r.n})</text>
             </g>
           );
         })}
