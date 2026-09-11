@@ -97,6 +97,7 @@ const uid = "hist-bands-" + Math.random().toString(36).slice(2, 8);
     clip: rect(0 0 0 0);
   }
   .band-toggle-label {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -112,12 +113,12 @@ const uid = "hist-bands-" + Math.random().toString(36).slice(2, 8);
     border-radius: 8px;
     background: var(--color-line-strong);
     display: inline-block;
-    position: relative;
     transition: background 0.15s;
   }
   .band-toggle-label::after {
     content: "";
     position: absolute;
+    top: 2px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
