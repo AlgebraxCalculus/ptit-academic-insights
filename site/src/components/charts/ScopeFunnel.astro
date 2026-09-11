@@ -1,0 +1,49 @@
+---
+/**
+ * V-01 — two-step static funnel: 2023 raw rows -> 905 in scope -> split by
+ * program. docs/website-spec.md §01.
+ */
+import meta from "../../data/meta.json";
+import { programColor } from "../../lib/colors";
+
+const total = meta.source_rows_total;
+const inScope = meta.n_in_scope;
+const outOfScope = total - inScope;
+
+const width = 640;
+const barHeight = 34;
+const gap = 10;
+
+function seg(value: number, total: number, xOffset: number, w: number) {
+  return (value / total) * w + xOffset;
+}
+---
+<figure>
+  <svg viewBox={`0 0 ${width} ${barHeight * 2 + gap}`} role="img" aria-label={`Từ ${total} sinh viên khối kỹ thuật, ${inScope} thuộc phạm vi CNTT và CNTT chất lượng cao; ${outOfScope} thuộc các ngành khác bị loại khỏi phạm vi.`}>
+    <rect x="0" y="0" width={seg(inScope, total, 0, width)} height={barHeight} fill={programColor("CNTT")} opacity="0.85" />
+    <rect x={seg(inScope, total, 0, width)} y="0" width={seg(outOfScope, total, 0, width)} height={barHeight} fill="var(--color-line-strong)" />
+    <text x="10" y={barHeight / 2 + 5} font-size="13" fill="white" font-weight="600">
+      {inScope} trong phạm vi
+    </text>
+    <text x={seg(inScope, total, 0, width) + 10} y={barHeight / 2 + 5} font-size="13" fill="var(--color-muted)">
+      {outOfScope} ngoài phạm vi
+    </text>
+
+    <rect x="0" y={barHeight + gap} width={seg(690, inScope, 0, seg(inScope, total, 0, width))} height={barHeight} fill={programColor("CNTT")} />
+    <rect
+      x={seg(690, inScope, 0, seg(inScope, total, 0, width))}
+      y={barHeight + gap}
+      width={seg(215, inScope, 0, seg(inScope, total, 0, width))}
+      height={barHeight}
+      fill={programColor("CNTT CLC")}
+    />
+    <text x="10" y={barHeight * 1.5 + gap + 5} font-size="13" fill="white" font-weight="600">690 CNTT</text>
+    <text x={seg(690, inScope, 0, seg(inScope, total, 0, width)) + 10} y={barHeight * 1.5 + gap + 5} font-size="13" fill="white" font-weight="600">
+      215 CNTT CLC
+    </text>
+  </svg>
+  <figcaption>
+    Từ {total} sinh viên khối kỹ thuật khóa D22 trong file gốc, {inScope} thuộc phạm vi phân tích này
+    (690 CNTT, 215 CNTT CLC), {outOfScope} thuộc 24 mã lớp của các ngành khác.
+  </figcaption>
+</figure>

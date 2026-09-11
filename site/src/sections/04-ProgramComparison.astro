@@ -1,0 +1,21 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import ProgramReveal from "../components/charts/ProgramReveal";
+import aggregates from "../data/aggregates.json";
+import copy from "../data/copy.json";
+
+const c = copy["04"];
+const pc = aggregates.program_comparison;
+---
+<Section id="program" label="So sánh chương trình">
+  <Headline id="program" text={c.headline} deck={c.deck} />
+  <ProgramReveal
+    client:visible
+    aggregate={pc.aggregate}
+    paired={pc.paired}
+    quantileDiff={pc.quantile_diff}
+    unpairedNote={pc.unpaired_note}
+    copy={c}
+  />
+</Section>

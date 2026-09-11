@@ -1,0 +1,76 @@
+---
+/**
+ * V-06a — two stacked horizontal bars showing admission-major composition
+ * of each program. docs/website-spec.md §06.
+ */
+import aggregates from "../../data/aggregates.json";
+import { majorLabel } from "../../lib/format";
+import DataTable from "../layout/DataTable.astro";
+
+const majorColors: Record<string, string> = {
+  DCCN: "#3b6ea5",
+  DCVT: "#c0703c",
+  DCDT: "#d99b6f",
+  DCAT: "#8a4a2a",
+  DCKH: "#a8a29a",
+  DCCI: "#c9c2b8",
+  DCDK: "#e2ddd6",
+};
+
+const width = 640;
+const barHeight = 34;
+const gap = 14;
+const programs = aggregates.composition.by_program;
+---
+<figure>
+  <svg
+    viewBox={`0 0 ${width} ${barHeight * programs.length + gap * (programs.length - 1)}`}
+    role="img"
+    aria-label="Hai thanh ngang xếp chồng thể hiện thành phần mã ngành tuyển sinh của CNTT (100% một màu) và CNTT CLC (chia thành nhiều mảng: Viễn thông 44.7%, Điện tử 23.3%, An toàn thông tin 15.8%, CNTT 13.5%)."
+  >
+    {programs.map((prog, pi) => {
+      let cursor = 0;
+      const y = pi * (barHeight + gap);
+      return (
+        <g>
+          {prog.majors.map((m) => {
+            const x = (cursor / prog.total) * width;
+            const w = (m.n / prog.total) * width;
+            cursor += m.n;
+            return (
+              <g>
+                <rect x={x} y={y} width={w} height={barHeight} fill={majorColors[m.major]}>
+                  <title>{majorLabel(m.major)}: {m.n} ({m.pct}%){m.mean_cpa !== null ? `, CPA TB ${m.mean_cpa.toFixed(2)}` : ""}</title>
+                </rect>
+                {m.pct >= 8 && (
+                  <text x={x + w / 2} y={y + barHeight / 2 + 4} font-size="11.5" fill="white" text-anchor="middle" font-weight="600">
+                    {m.pct}%
+                  </text>
+                )}
+              </g>
+            );
+          })}
+          <text x="4" y={y - 4} font-size="12" fill="var(--color-muted)">{prog.program}</text>
+        </g>
+      );
+    })}
+  </svg>
+  <div class="legend">
+    {Object.entries(majorColors).map(([code, color]) => (
+      <span class="legend-item"><span class="legend-swatch" style={`background:${color}`}></span>{majorLabel(code)}</span>
+    ))}
+  </div>
+  <DataTable headers={["Chương trình", "Mã ngành", "n", "%", "CPA trung bình"]}>
+    {programs.flatMap((prog) =>
+      prog.majors.map((m) => (
+        <tr>
+          <td>{prog.program}</td>
+          <td>{majorLabel(m.major)}</td>
+          <td>{m.n}</td>
+          <td>{m.pct}%</td>
+          <td>{m.mean_cpa !== null ? m.mean_cpa.toFixed(2) : "n quá nhỏ để hiển thị"}</td>
+        </tr>
+      ))
+    )}
+  </DataTable>
+</figure>

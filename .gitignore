@@ -1,0 +1,22 @@
+# Raw and interim data — contain PII / quasi-identifiers, never commit
+data/raw/
+data/interim/
+*.xlsx
+*.parquet
+
+# Pipeline (Python)
+pipeline/.venv/
+pipeline/__pycache__/
+pipeline/**/__pycache__/
+pipeline/.pytest_cache/
+pipeline/.ruff_cache/
+*.pyc
+
+# Site (Node)
+site/node_modules/
+site/dist/
+site/.astro/
+
+# OS / editor
+.DS_Store
+Thumbs.db

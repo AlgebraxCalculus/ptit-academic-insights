@@ -1,0 +1,73 @@
+---
+/**
+ * V-02 — 100% stacked bar of the 5 CPA classification bands.
+ * docs/website-spec.md §02.
+ */
+import aggregates from "../../data/aggregates.json";
+import DataTable from "../layout/DataTable.astro";
+
+const bands = aggregates.bands.classification;
+const width = 640;
+const height = 56;
+
+const bandColors: Record<string, string> = {
+  "Xuất sắc": "#3b6ea5",
+  Giỏi: "#5c8fc0",
+  Khá: "#8fb3d6",
+  "Trung bình": "#d9c9a8",
+  Yếu: "#c0703c",
+};
+
+let cursor = 0;
+const segments = bands.map((b) => {
+  const x = (cursor / 100) * width;
+  const w = (b.pct / 100) * width;
+  cursor += b.pct;
+  return { ...b, x, w };
+});
+---
+<figure>
+  <svg
+    viewBox={`0 0 ${width} ${height}`}
+    role="img"
+    aria-label="Biểu đồ cột 100% cho thấy 57.1% sinh viên đạt loại Khá, 18.7% Trung bình, 17.4% Giỏi, 4.5% Yếu và 2.2% Xuất sắc."
+  >
+    {segments.map((s) => (
+      <g>
+        <rect x={s.x} y="0" width={s.w} height={height} fill={bandColors[s.label]} />
+        {s.pct >= 6 && (
+          <text
+            x={s.x + s.w / 2}
+            y={height / 2 + 5}
+            font-size="13"
+            font-weight="600"
+            fill="white"
+            text-anchor="middle"
+          >
+            {s.pct}%
+          </text>
+        )}
+      </g>
+    ))}
+  </svg>
+  <div class="legend">
+    {segments.map((s) => (
+      <span class="legend-item">
+        <span class="legend-swatch" style={`background:${bandColors[s.label]}`}></span>
+        {s.label} ({s.min.toFixed(1)}–{s.max.toFixed(1)}): {s.n} · {s.pct}%
+      </span>
+    ))}
+  </div>
+  <figcaption>Thang phân loại 4.0. Khoảng tin cậy 95% cho mỗi tỷ lệ có trong bảng dữ liệu bên dưới.</figcaption>
+  <DataTable headers={["Xếp loại", "Khoảng CPA", "n", "%", "CI 95%"]}>
+    {bands.map((b) => (
+      <tr>
+        <td>{b.label}</td>
+        <td>{b.min.toFixed(2)}–{b.max.toFixed(2)}</td>
+        <td>{b.n}</td>
+        <td>{b.pct}%</td>
+        <td>[{b.ci[0]}%, {b.ci[1]}%]</td>
+      </tr>
+    ))}
+  </DataTable>
+</figure>

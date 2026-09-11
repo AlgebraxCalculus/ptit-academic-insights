@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionNav from "../components/layout/SectionNav.astro";
+import Hero from "../sections/Hero.astro";
+import Scope from "../sections/01-Scope.astro";
+import Overview from "../sections/02-Overview.astro";
+import Distribution from "../sections/03-Distribution.astro";
+import ProgramComparison from "../sections/04-ProgramComparison.astro";
+import TrackStructure from "../sections/05-TrackStructure.astro";
+import Composition from "../sections/06-Composition.astro";
+import Eligibility from "../sections/07-Eligibility.astro";
+import Explore from "../sections/08-Explore.astro";
+import Methodology from "../sections/09-Methodology.astro";
+import Limits from "../sections/10-Limits.astro";
+import Footer from "../sections/Footer.astro";
+---
+<BaseLayout>
+  <SectionNav />
+  <main>
+    <Hero />
+    <Scope />
+    <Overview />
+    <Distribution />
+    <ProgramComparison />
+    <TrackStructure />
+    <Composition />
+    <Eligibility />
+    <Explore />
+    <Methodology />
+    <Limits />
+  </main>
+  <Footer />
+</BaseLayout>

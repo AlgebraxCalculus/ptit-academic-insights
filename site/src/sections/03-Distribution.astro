@@ -1,0 +1,15 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import Caveat from "../components/layout/Caveat.astro";
+import CpaHistogram from "../components/charts/CpaHistogram.astro";
+import copy from "../data/copy.json";
+
+const c = copy["03"];
+---
+<Section id="distribution" label="Phân bố">
+  <Headline id="distribution" text={c.headline} deck={c.deck} />
+  <CpaHistogram />
+  {c.body.map((p: string) => <p>{p}</p>)}
+  <Caveat>{c.caveat}</Caveat>
+</Section>

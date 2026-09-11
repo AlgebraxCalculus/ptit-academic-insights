@@ -1,0 +1,44 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import Caveat from "../components/layout/Caveat.astro";
+import EligibilityBars from "../components/charts/EligibilityBars";
+import CpaCreditScatter from "../components/charts/CpaCreditScatter";
+import aggregates from "../data/aggregates.json";
+import copy from "../data/copy.json";
+
+const c = copy["07"];
+const overlapBand = aggregates.eligibility.credit_overlap;
+---
+<Section id="eligibility" label="Điều kiện đồ án tốt nghiệp">
+  <Headline id="eligibility" text={c.headline} deck={c.deck} />
+
+  <p>{c.body[0]}</p>
+  <EligibilityBars
+    client:visible
+    byTrack={aggregates.by_track}
+    byProgram={aggregates.eligibility.by_program}
+    labels={c.toggleLabels}
+  />
+
+  <p>{c.body[1]}</p>
+  <p>{c.body[2]}</p>
+  <CpaCreditScatter client:visible overlapBand={{ lo: overlapBand.lo, hi: overlapBand.hi }} />
+
+  <Caveat>{c.caveat}</Caveat>
+
+  <aside class="time-panel">
+    <h3>{c.timePanel.headline}</h3>
+    <p>{c.timePanel.body}</p>
+  </aside>
+</Section>
+
+<style>
+  .time-panel {
+    margin-top: var(--space-4);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+</style>

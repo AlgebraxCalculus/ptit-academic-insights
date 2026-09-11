@@ -1,0 +1,14 @@
+---
+interface Props {
+  id: string;
+  label?: string;
+  wide?: boolean;
+}
+const { id, label, wide = false } = Astro.props;
+---
+<section data-section={id} id={id} aria-labelledby={`${id}-headline`}>
+  <div class={wide ? "wrap wrap--wide" : "wrap"}>
+    {label && <span class="section-label">{label}</span>}
+    <slot />
+  </div>
+</section>

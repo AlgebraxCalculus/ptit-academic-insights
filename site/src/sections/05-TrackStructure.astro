@@ -1,0 +1,43 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import Caveat from "../components/layout/Caveat.astro";
+import EtaSquaredBar from "../components/charts/EtaSquaredBar.astro";
+import ColorByToggle from "../components/charts/ColorByToggle";
+import TrackRidgeline from "../components/charts/TrackRidgeline.astro";
+import ClassCaterpillar from "../components/charts/ClassCaterpillar.astro";
+import histograms from "../data/histograms.json";
+import copy from "../data/copy.json";
+
+const c05 = copy["05"];
+const c05b = copy["05b"];
+const c05c = copy["05c"];
+---
+<Section id="track" label="Cấu trúc chuyên ngành">
+  <Headline id="track" text={c05.headline} deck={c05.deck} />
+  <EtaSquaredBar />
+  {c05.body.map((p: string) => <p>{p}</p>)}
+  <ColorByToggle client:visible histograms={histograms} labels={c05.toggleLabels} />
+  <Caveat>{c05.caveat}</Caveat>
+
+  <h3 class="headline sub-headline" id="track-pair" style="margin-top:3rem">{c05b.headline}</h3>
+  <p class="deck">{c05b.deck}</p>
+  <TrackRidgeline />
+  {c05b.body.map((p: string) => <p>{p}</p>)}
+  <Caveat critical>{c05b.caveat}</Caveat>
+
+  <h3 class="headline sub-headline" id="track-classes" style="margin-top:3rem">{c05c.headline}</h3>
+  <p class="deck">{c05c.deck}</p>
+  <ClassCaterpillar />
+  {c05c.body.map((p: string) => <p>{p}</p>)}
+  <Caveat>{c05c.caveat}</Caveat>
+</Section>
+
+<style>
+  /* h3 reuses the h2 "headline" visual scale but one step down, keeping
+     05b/05c as clearly-subordinate beats within the §05 narrative rather
+     than new top-level sections (docs/website-spec.md §05, §05b, §05c). */
+  .sub-headline {
+    font-size: clamp(1.2rem, 1.8vw + 0.5rem, 1.6rem);
+  }
+</style>

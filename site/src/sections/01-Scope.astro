@@ -1,0 +1,24 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import Caveat from "../components/layout/Caveat.astro";
+import ScopeFunnel from "../components/charts/ScopeFunnel.astro";
+import copy from "../data/copy.json";
+
+const c = copy["01"];
+const outOfScopeClasses = [
+  "D22VTMD01–05 (257)", "D22CQAT01–04-B (214)", "D22CQKH01–02-B (128)",
+  "D22TKDPT1–2 (116)", "D22DTVM01–02 (86)", "D22VTHI01–02 (82)",
+  "D22PTDPT1–2 (80)", "D22DTMT01–02 (78)", "D22VTVT (40)", "D22XLTH (36)", "D23DTMT01 (1)",
+];
+---
+<Section id="scope" label="Phạm vi">
+  <Headline id="scope" text={c.headline} deck={c.deck} />
+  <ScopeFunnel />
+  {c.body.map((p: string) => <p>{p}</p>)}
+  <details>
+    <summary class="link-toggle">{c.expandLabel}</summary>
+    <p class="footnote">{outOfScopeClasses.join(" · ")}</p>
+  </details>
+  <Caveat>{c.caveat}</Caveat>
+</Section>

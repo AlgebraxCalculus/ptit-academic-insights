@@ -1,0 +1,59 @@
+---
+/**
+ * V-05c — overlapping density of D22CNPM vs D22HTTT with an annotated line
+ * at CPA 2.43 (the CNPM floor). docs/website-spec.md §05b.
+ */
+import histograms from "../../data/histograms.json";
+import aggregates from "../../data/aggregates.json";
+import { xScale, yScale, densityPoints, smoothLinePath, smoothAreaPath } from "../../lib/svg";
+import { trackColor } from "../../lib/colors";
+
+const width = 640;
+const height = 260;
+const padTop = 16;
+const padBottom = 30;
+
+const xs = xScale([histograms.domain[0], histograms.domain[1]], width);
+
+const cnpmPoints0 = densityPoints(histograms.edges, histograms.by_track.D22CNPM, xs, (v) => v);
+const htttPoints0 = densityPoints(histograms.edges, histograms.by_track.D22HTTT, xs, (v) => v);
+const maxDensity = Math.max(...cnpmPoints0.map((p) => p.y), ...htttPoints0.map((p) => p.y));
+const ys = yScale([0, maxDensity * 1.15], height - padBottom, padTop);
+
+const cnpmPoints = densityPoints(histograms.edges, histograms.by_track.D22CNPM, xs, ys);
+const htttPoints = densityPoints(histograms.edges, histograms.by_track.D22HTTT, xs, ys);
+
+const truncation = aggregates.track_contrast.cnpm_vs_httt.truncation;
+const floorX = xs(truncation.cnpm_min);
+---
+<figure>
+  <svg
+    viewBox={`0 0 ${width} ${height}`}
+    role="img"
+    aria-label="Biểu đồ mật độ chồng của D22CNPM và D22HTTT: đường CNPM dừng hẳn ở CPA 2.43, đường HTTT trải rộng từ 1.65 đến 3.69, hai đường chỉ chồng lấn một phần nhỏ."
+  >
+    <path d={smoothAreaPath(htttPoints, height - padBottom)} fill={trackColor("D22HTTT")} opacity="0.28" />
+    <path d={smoothLinePath(htttPoints)} fill="none" stroke={trackColor("D22HTTT")} stroke-width="2" />
+
+    <path d={smoothAreaPath(cnpmPoints, height - padBottom)} fill={trackColor("D22CNPM")} opacity="0.28" />
+    <path d={smoothLinePath(cnpmPoints)} fill="none" stroke={trackColor("D22CNPM")} stroke-width="2" />
+
+    <line x1={floorX} y1={padTop} x2={floorX} y2={height - padBottom} stroke="var(--color-ink)" stroke-dasharray="4,3" />
+    <text x={floorX + 6} y={padTop + 12} font-size="11.5" fill="var(--color-ink)" font-weight="600">
+      2.43 — không SV CNPM nào dưới ngưỡng này
+    </text>
+
+    <line x1="0" y1={height - padBottom} x2={width} y2={height - padBottom} stroke="var(--color-line-strong)" />
+    {[1.5, 2.0, 2.5, 3.0, 3.5].map((t) => (
+      <text x={xs(t)} y={height - 8} font-size="11" class="axis-label" text-anchor="middle">{t.toFixed(1)}</text>
+    ))}
+  </svg>
+  <div class="legend">
+    <span class="legend-item"><span class="legend-swatch" style={`background:${trackColor("D22CNPM")}`}></span>D22CNPM (n=362)</span>
+    <span class="legend-item"><span class="legend-swatch" style={`background:${trackColor("D22HTTT")}`}></span>D22HTTT (n=326)</span>
+  </div>
+  <figcaption>
+    Chỉ {truncation.cnpm_below_httt_median} trong 362 sinh viên CNPM nằm dưới trung vị của HTTT, trong khi{" "}
+    {truncation.httt_above_cnpm_min_pct}% sinh viên HTTT nằm trên mức sàn của CNPM.
+  </figcaption>
+</figure>

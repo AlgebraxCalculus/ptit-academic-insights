@@ -1,0 +1,146 @@
+---
+/**
+ * V-03 — full CPA histogram with Q1/median/Q3 markers and a pure-CSS
+ * (no JS) toggle overlaying the 5 classification bands.
+ * docs/website-spec.md §03.
+ */
+import histograms from "../../data/histograms.json";
+import aggregates from "../../data/aggregates.json";
+import DataTable from "../layout/DataTable.astro";
+import { xScale, yScale, histogramBars } from "../../lib/svg";
+
+const width = 640;
+const height = 280;
+const padBottom = 28;
+const padTop = 10;
+
+const xs = xScale([histograms.domain[0], histograms.domain[1]], width);
+const maxCount = Math.max(...histograms.overall);
+const ys = yScale([0, maxCount * 1.08], height - padBottom, padTop);
+const bars = histogramBars(histograms.edges, histograms.overall, xs, ys, height - padBottom);
+
+const o = aggregates.overall;
+const markers = [
+  { value: o.q1, label: `Q1 · ${o.q1.toFixed(2)}` },
+  { value: o.median, label: `Trung vị · ${o.median.toFixed(2)}` },
+  { value: o.q3, label: `Q3 · ${o.q3.toFixed(2)}` },
+];
+
+const bandRanges: { label: string; min: number; max: number; color: string }[] = [
+  { label: "Yếu", min: 0, max: 2.0, color: "#c0703c" },
+  { label: "Trung bình", min: 2.0, max: 2.5, color: "#d9c9a8" },
+  { label: "Khá", min: 2.5, max: 3.2, color: "#8fb3d6" },
+  { label: "Giỏi", min: 3.2, max: 3.6, color: "#5c8fc0" },
+  { label: "Xuất sắc", min: 3.6, max: 4.0, color: "#3b6ea5" },
+];
+
+const uid = "hist-bands-" + Math.random().toString(36).slice(2, 8);
+---
+<figure class="hist-wrap">
+  <input type="checkbox" id={uid} class="band-toggle-checkbox" />
+  <label for={uid} class="band-toggle-label">Hiện dải xếp loại</label>
+
+  <svg
+    viewBox={`0 0 ${width} ${height}`}
+    role="img"
+    aria-label="Biểu đồ histogram CPA hình chuông lệch nhẹ, đỉnh quanh 2.6-2.8, trải từ 1.4 đến 3.72, với các mốc tứ phân vị được đánh dấu."
+  >
+    <g class="band-overlay">
+      {bandRanges.map((b) => {
+        const x0 = xs(Math.max(b.min, histograms.domain[0]));
+        const x1 = xs(Math.min(b.max, histograms.domain[1]));
+        return <rect x={x0} y={padTop} width={Math.max(0, x1 - x0)} height={height - padBottom - padTop} fill={b.color} opacity="0.16" />;
+      })}
+    </g>
+
+    {bars.map((b) => (
+      <rect x={b.x} y={b.y} width={b.width} height={b.height} fill="var(--color-cntt)" opacity="0.85" />
+    ))}
+
+    <line x1="0" y1={height - padBottom} x2={width} y2={height - padBottom} stroke="var(--color-line-strong)" />
+
+    {[1.5, 2.0, 2.5, 3.0, 3.5].map((t) => (
+      <text x={xs(t)} y={height - 8} font-size="11" class="axis-label" text-anchor="middle">{t.toFixed(1)}</text>
+    ))}
+
+    {markers.map((m) => (
+      <g>
+        <line x1={xs(m.value)} y1={padTop} x2={xs(m.value)} y2={height - padBottom} stroke="var(--color-ink)" stroke-dasharray="3,3" opacity="0.55" />
+      </g>
+    ))}
+  </svg>
+
+  <div class="legend">
+    {markers.map((m) => <span class="legend-item">{m.label}</span>)}
+  </div>
+
+  <figcaption>
+    IQR (Q1–Q3) = {o.iqr.toFixed(2)} điểm. Bật "Hiện dải xếp loại" để xem histogram phủ theo 5 mức xếp loại.
+  </figcaption>
+
+  <DataTable headers={["Khoảng", "n"]}>
+    {histograms.overall.map((c, i) => (
+      <tr>
+        <td>{histograms.edges[i].toFixed(1)}–{histograms.edges[i + 1].toFixed(1)}</td>
+        <td>{c}</td>
+      </tr>
+    ))}
+  </DataTable>
+</figure>
+
+<style>
+  .band-toggle-checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .band-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+  }
+  .band-toggle-label::before {
+    content: "";
+    width: 28px;
+    height: 16px;
+    border-radius: 8px;
+    background: var(--color-line-strong);
+    display: inline-block;
+    position: relative;
+    transition: background 0.15s;
+  }
+  .band-toggle-label::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    left: 2px;
+    transform: translateX(0);
+    transition: transform 0.15s;
+  }
+  .band-toggle-checkbox:checked + .band-toggle-label::before {
+    background: var(--color-cntt);
+  }
+  .band-toggle-checkbox:checked + .band-toggle-label::after {
+    transform: translateX(12px);
+  }
+  .band-overlay {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .band-toggle-checkbox:checked ~ svg .band-overlay {
+    opacity: 1;
+  }
+  .band-toggle-checkbox:focus-visible + .band-toggle-label {
+    outline: 2px solid var(--color-cntt);
+    outline-offset: 2px;
+  }
+</style>

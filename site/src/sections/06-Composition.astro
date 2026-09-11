@@ -1,0 +1,17 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import Caveat from "../components/layout/Caveat.astro";
+import CompositionBars from "../components/charts/CompositionBars.astro";
+import MajorDotPlot from "../components/charts/MajorDotPlot.astro";
+import copy from "../data/copy.json";
+
+const c = copy["06"];
+---
+<Section id="composition" label="Thành phần">
+  <Headline id="composition" text={c.headline} deck={c.deck} />
+  <CompositionBars />
+  {c.body.map((p: string) => <p>{p}</p>)}
+  <MajorDotPlot />
+  <Caveat>{c.caveat}</Caveat>
+</Section>

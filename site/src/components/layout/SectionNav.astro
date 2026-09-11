@@ -1,0 +1,35 @@
+---
+import copy from "../../data/copy.json";
+const items = copy.nav as { id: string; label: string }[];
+---
+<nav class="nav-toc" aria-label="Mục lục">
+  <ul>
+    {items.map((item) => (
+      <li>
+        <a href={`#${item.id}`} data-nav-link={item.id}>{item.label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"));
+  const sections = links
+    .map((l) => document.getElementById(l.dataset.navLink!))
+    .filter((el): el is HTMLElement => el !== null);
+
+  if (sections.length && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            links.forEach((l) => l.classList.toggle("active", l.dataset.navLink === id));
+          }
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((s) => observer.observe(s));
+  }
+</script>

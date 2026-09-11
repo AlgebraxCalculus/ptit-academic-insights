@@ -1,0 +1,88 @@
+:root {
+  --color-bg: #faf8f5;
+  --color-surface: #ffffff;
+  --color-ink: #1f2933;
+  --color-muted: #5b6770;
+  --color-faint: #8a94a0;
+  --color-line: #e2ddd6;
+  --color-line-strong: #c9c2b8;
+
+  --color-cntt: #3b6ea5;
+  --color-cntt-clc: #c0703c;
+
+  --color-track-d22cnpm: #3b6ea5;
+  --color-track-d22httt: #7fa8d1;
+  --color-track-e22cnpm: #c0703c;
+  --color-track-e22httt: #d99b6f;
+  --color-track-e22ttnt: #8a4a2a;
+
+  --color-caveat-bg: #fbf1e6;
+  --color-caveat-border: #d9a15c;
+  --color-critical-bg: #fbe9e4;
+  --color-critical-border: #c1502f;
+
+  --font-sans: "Inter", "Helvetica Neue", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  --measure: 42rem;
+  --measure-wide: 62rem;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+
+  --radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #16181c;
+    --color-surface: #1f2227;
+    --color-ink: #eceff1;
+    --color-muted: #a7afb8;
+    --color-faint: #7d848c;
+    --color-line: #33383f;
+    --color-line-strong: #454c54;
+
+    --color-cntt: #7fa8d1;
+    --color-cntt-clc: #e0925f;
+
+    --color-track-d22cnpm: #7fa8d1;
+    --color-track-d22httt: #5b87b3;
+    --color-track-e22cnpm: #e0925f;
+    --color-track-e22httt: #c47a48;
+    --color-track-e22ttnt: #f0b083;
+
+    --color-caveat-bg: #2c2417;
+    --color-caveat-border: #b9803f;
+    --color-critical-bg: #2c1a16;
+    --color-critical-border: #a5432a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #16181c;
+  --color-surface: #1f2227;
+  --color-ink: #eceff1;
+  --color-muted: #a7afb8;
+  --color-faint: #7d848c;
+  --color-line: #33383f;
+  --color-line-strong: #454c54;
+
+  --color-cntt: #7fa8d1;
+  --color-cntt-clc: #e0925f;
+
+  --color-track-d22cnpm: #7fa8d1;
+  --color-track-d22httt: #5b87b3;
+  --color-track-e22cnpm: #e0925f;
+  --color-track-e22httt: #c47a48;
+  --color-track-e22ttnt: #f0b083;
+
+  --color-caveat-bg: #2c2417;
+  --color-caveat-border: #b9803f;
+  --color-critical-bg: #2c1a16;
+  --color-critical-border: #a5432a;
+}

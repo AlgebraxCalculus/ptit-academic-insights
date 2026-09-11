@@ -1,0 +1,74 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import copy from "../data/copy.json";
+
+const c = copy["09"];
+const groups = Object.values(c.sections) as { title: string; rows: [string, string][] }[];
+---
+<Section id="methodology" label="Phương pháp">
+  <Headline id="methodology" text={c.headline} />
+  {groups.map((g) => (
+    <details class="method-group">
+      <summary><h3>{g.title}</h3></summary>
+      <table>
+        <tbody>
+          {g.rows.map(([k, v]) => (
+            <tr>
+              <th scope="row">{k}</th>
+              <td>{v}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </details>
+  ))}
+</Section>
+
+<style>
+  .method-group {
+    border-top: 1px solid var(--color-line);
+    padding-block: 1rem;
+  }
+  .method-group summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  .method-group summary::-webkit-details-marker {
+    display: none;
+  }
+  .method-group summary h3 {
+    display: inline;
+    margin: 0;
+  }
+  .method-group summary::before {
+    content: "+ ";
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+  }
+  .method-group[open] summary::before {
+    content: "− ";
+  }
+  .method-group table {
+    margin-top: 1rem;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .method-group th,
+  .method-group td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.5rem 0.75rem 0.5rem 0;
+    border-bottom: 1px solid var(--color-line);
+    font-weight: 400;
+    font-size: 0.92rem;
+  }
+  .method-group th {
+    width: 30%;
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .method-group td {
+    color: var(--color-muted);
+  }
+</style>

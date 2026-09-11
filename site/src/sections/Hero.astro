@@ -1,0 +1,42 @@
+---
+import copy from "../data/copy.json";
+import DensityRidge from "../components/charts/DensityRidge.astro";
+
+const c = copy["00"];
+---
+<header class="hero">
+  <div class="wrap">
+    <DensityRidge />
+    <h1>{c.headline}</h1>
+    <p class="deck">{c.deck}</p>
+    <div class="stat-row">
+      {c.stats.map((s) => (
+        <div class="stat">
+          <span class="value">{s.value}</span>
+          <span class="label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+    <p class="scroll-cue">{c.scrollCue}</p>
+    <p class="caveat-line">{c.caveat}</p>
+  </div>
+</header>
+
+<style>
+  .hero {
+    padding-block: var(--space-5) var(--space-4);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .scroll-cue {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    margin-top: var(--space-3);
+  }
+  .caveat-line {
+    font-size: 0.85rem;
+    color: var(--color-faint);
+    max-width: 34rem;
+    border-top: 1px solid var(--color-line);
+    padding-top: 1rem;
+  }
+</style>

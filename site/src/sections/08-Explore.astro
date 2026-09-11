@@ -1,0 +1,22 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import ExplorePanel from "../components/explore/ExplorePanel";
+import meta from "../data/meta.json";
+import aggregates from "../data/aggregates.json";
+import histograms from "../data/histograms.json";
+import copy from "../data/copy.json";
+import type { Meta as MetaType } from "../types/data";
+
+const c = copy["08"];
+---
+<Section id="explore" label="Tự khám phá" wide>
+  <Headline id="explore" text={c.headline} deck={c.deck} />
+  <ExplorePanel
+    client:idle
+    meta={meta as MetaType}
+    byClass={aggregates.by_class}
+    overallHistogram={histograms.overall}
+    copy={c}
+  />
+</Section>

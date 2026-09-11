@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "meta.json",
+  "type": "object",
+  "required": [
+    "generated_at", "pipeline_version", "source_file_sha256", "source_rows_total",
+    "scope_regex", "n_in_scope", "n_with_cpa", "n_classes", "n_tracks", "n_programs",
+    "cohort", "min_group_size", "bootstrap", "dictionaries"
+  ],
+  "properties": {
+    "generated_at": { "type": "string" },
+    "pipeline_version": { "type": "string" },
+    "source_file_sha256": { "type": "string", "minLength": 64, "maxLength": 64 },
+    "source_rows_total": { "type": "integer" },
+    "scope_regex": { "type": "string" },
+    "n_in_scope": { "type": "integer", "const": 905 },
+    "n_with_cpa": { "type": "integer" },
+    "n_classes": { "type": "integer", "const": 18 },
+    "n_tracks": { "type": "integer", "const": 5 },
+    "n_programs": { "type": "integer", "const": 2 },
+    "cohort": { "type": "object" },
+    "min_group_size": { "type": "integer" },
+    "bootstrap": {
+      "type": "object",
+      "required": ["iterations", "seed"],
+      "properties": {
+        "iterations": { "type": "integer" },
+        "seed": { "type": "integer" }
+      }
+    },
+    "dictionaries": {
+      "type": "object",
+      "required": ["track", "program", "major"],
+      "properties": {
+        "track": { "type": "array", "items": { "type": "string" } },
+        "program": { "type": "array", "items": { "type": "string" } },
+        "major": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "additionalProperties": false
+}

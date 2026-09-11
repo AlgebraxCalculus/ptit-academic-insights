@@ -1,0 +1,43 @@
+---
+/**
+ * V-06b — mean CPA by admission major within CNTT CLC, n>=20 only.
+ * docs/website-spec.md §06.
+ */
+import aggregates from "../../data/aggregates.json";
+import { majorLabel } from "../../lib/format";
+import { xScale } from "../../lib/svg";
+
+const clc = aggregates.composition.by_program.find((p) => p.program === "CNTT CLC")!;
+const majors = clc.majors.filter((m) => m.mean_cpa !== null);
+
+const width = 560;
+const rowHeight = 34;
+const height = majors.length * rowHeight + 20;
+const labelWidth = 160;
+const values = majors.map((m) => m.mean_cpa!) as number[];
+const domain: [number, number] = [Math.floor(Math.min(...values) * 10) / 10 - 0.1, Math.ceil(Math.max(...values) * 10) / 10 + 0.1];
+const xs = xScale(domain, width - labelWidth - 10, 0);
+---
+<figure>
+  <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Biểu đồ điểm CPA trung bình theo mã ngành tuyển sinh trong nội bộ hệ chất lượng cao, chỉ các nhóm từ 20 sinh viên trở lên.">
+    {majors.map((m, i) => {
+      const y = i * rowHeight + 16;
+      return (
+        <g>
+          <text x={labelWidth - 8} y={y + 4} font-size="12" text-anchor="end" fill="var(--color-ink)">
+            {majorLabel(m.major)} (n={m.n})
+          </text>
+          <line x1={labelWidth} y1={y} x2={width} y2={y} stroke="var(--color-line)" />
+          <circle cx={labelWidth + xs(m.mean_cpa!)} cy={y} r="5" fill="var(--color-cntt-clc)" />
+          <text x={labelWidth + xs(m.mean_cpa!) + 10} y={y + 4} font-size="11.5" fill="var(--color-muted)">
+            {m.mean_cpa!.toFixed(2)}
+          </text>
+        </g>
+      );
+    })}
+    {[2.6, 2.8, 3.0, 3.2].filter((t) => t >= domain[0] && t <= domain[1]).map((t) => (
+      <text x={labelWidth + xs(t)} y={height - 4} font-size="10" class="axis-label" text-anchor="middle">{t.toFixed(1)}</text>
+    ))}
+  </svg>
+  <figcaption>Chỉ các mã ngành có từ 20 sinh viên trở lên trong hệ chất lượng cao được hiển thị.</figcaption>
+</figure>

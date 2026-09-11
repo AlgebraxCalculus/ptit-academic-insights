@@ -1,0 +1,36 @@
+---
+/**
+ * V-00 — purely decorative hint of the CPA distribution shape for the hero.
+ * No axes, no labels, no interaction (docs/website-spec.md §00).
+ */
+import histograms from "../../data/histograms.json";
+import { xScale, yScale, densityPoints, smoothAreaPath } from "../../lib/svg";
+
+const width = 640;
+const height = 100;
+const xs = xScale([histograms.domain[0], histograms.domain[1]], width);
+const maxDensity = Math.max(
+  ...densityPoints(histograms.edges, histograms.overall, xs, (v) => v).map((p) => p.y)
+);
+const ys = yScale([0, maxDensity * 1.15], height, 4);
+const points = densityPoints(histograms.edges, histograms.overall, xs, ys);
+const path = smoothAreaPath(points, height);
+---
+<svg
+  class="density-ridge"
+  viewBox={`0 0 ${width} ${height}`}
+  role="presentation"
+  aria-hidden="true"
+  preserveAspectRatio="none"
+>
+  <path d={path} fill="currentColor" opacity="0.08" />
+</svg>
+
+<style>
+  .density-ridge {
+    display: block;
+    width: 100%;
+    height: 100px;
+    color: var(--color-ink);
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import BandBar from "../components/charts/BandBar.astro";
+import copy from "../data/copy.json";
+
+const c = copy["02"];
+---
+<Section id="overview" label="Tổng quan">
+  <Headline id="overview" text={c.headline} deck={c.deck} />
+  <BandBar />
+  {c.body.map((p: string) => <p>{p}</p>)}
+  <p class="footnote">{c.footnote}</p>
+</Section>

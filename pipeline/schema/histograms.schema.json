@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "histograms.json",
+  "type": "object",
+  "required": ["bin_width", "domain", "edges", "overall", "by_program", "by_track"],
+  "properties": {
+    "bin_width": { "type": "number" },
+    "domain": { "type": "array", "minItems": 2, "maxItems": 2 },
+    "edges": { "type": "array", "items": { "type": "number" } },
+    "overall": { "type": "array", "items": { "type": "integer" } },
+    "by_program": { "type": "object" },
+    "by_track": { "type": "object" }
+  },
+  "additionalProperties": false
+}

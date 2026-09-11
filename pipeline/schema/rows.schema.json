@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "rows.json",
+  "description": "Row-level anonymized payload. Field set is fixed by docs/architecture.md §9.2 — do not add fields here without re-running the privacy gate (pipeline/s5_privacy.py) and updating the ceiling check.",
+  "type": "object",
+  "required": ["n", "encoding", "track", "major", "cpa", "cr", "el"],
+  "properties": {
+    "n": { "type": "integer", "const": 905 },
+    "encoding": { "type": "string", "const": "columnar-int" },
+    "track": { "type": "array", "items": { "type": "integer", "minimum": 0, "maximum": 4 } },
+    "major": { "type": "array", "items": { "type": "integer", "minimum": 0, "maximum": 6 } },
+    "cpa": { "type": "array", "items": { "type": "integer" } },
+    "cr": { "type": "array", "items": { "type": "integer" } },
+    "el": { "type": "array", "items": { "type": "integer", "enum": [0, 1] } }
+  },
+  "additionalProperties": false
+}

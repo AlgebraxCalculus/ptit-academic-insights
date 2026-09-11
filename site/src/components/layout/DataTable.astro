@@ -1,0 +1,25 @@
+---
+/**
+ * Accessible fallback for every chart: the exact numbers behind it, in a
+ * closed <details> so it never competes visually with the chart but is
+ * always one click away (docs/architecture.md §7.5).
+ */
+interface Props {
+  summary?: string;
+  headers: string[];
+}
+const { summary = "Xem dữ liệu dạng bảng", headers } = Astro.props;
+---
+<details class="data-table">
+  <summary>{summary}</summary>
+  <table>
+    <thead>
+      <tr>
+        {headers.map((h) => <th scope="col">{h}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      <slot />
+    </tbody>
+  </table>
+</details>

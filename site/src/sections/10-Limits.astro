@@ -1,0 +1,36 @@
+---
+import Section from "../components/layout/Section.astro";
+import Headline from "../components/layout/Headline.astro";
+import copy from "../data/copy.json";
+
+const c = copy["10"];
+---
+<Section id="limits" label="Giới hạn">
+  <Headline id="limits" text={c.headline} />
+  <ol class="limits-list">
+    {c.items.map((item: { question: string; answer: string }) => (
+      <li>
+        <strong>{item.question}</strong>
+        <p>{item.answer}</p>
+      </li>
+    ))}
+  </ol>
+  <p class="footnote">{c.closing}</p>
+</Section>
+
+<style>
+  .limits-list {
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .limits-list li strong {
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .limits-list p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import copy from "../data/copy.json";
+const c = copy.footer;
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <p>{c.text}</p>
+    <p class="footnote">{c.sourceNote}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-4);
+    color: var(--color-faint);
+    font-size: 0.85rem;
+  }
+  .site-footer p {
+    margin: 0 0 0.4rem;
+  }
+</style>

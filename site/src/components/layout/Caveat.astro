@@ -1,0 +1,11 @@
+---
+interface Props {
+  critical?: boolean;
+  as?: "aside" | "div";
+}
+const { critical = false, as = "aside" } = Astro.props;
+const Tag = as;
+---
+<Tag class={`caveat ${critical ? "caveat--critical" : ""}`} role="note">
+  <p><slot /></p>
+</Tag>

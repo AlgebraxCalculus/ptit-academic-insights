@@ -1,0 +1,70 @@
+---
+/**
+ * V-05a — eta-squared horizontal bar chart across 9 grouping variables,
+ * with `track_label` and `program` highlighted. docs/website-spec.md §05.
+ */
+import aggregates from "../../data/aggregates.json";
+import DataTable from "../layout/DataTable.astro";
+
+const labels: Record<string, string> = {
+  class_code: "Lớp học (18 lớp)",
+  track_label: "Chuyên ngành (5 nhóm)",
+  credits: "Tín chỉ tích lũy (r²)",
+  tttn_grade: "Điểm TTTN",
+  credits_eligible_only: "Tín chỉ (chỉ SV đủ đk, r²)",
+  eligible_for_thesis: "Điều kiện làm ĐATN",
+  birthplace_n20plus: "Nơi sinh (tỉnh n≥20)",
+  admission_major_code: "Mã ngành tuyển sinh",
+  program: "Chương trình (CNTT / CLC)",
+  is_off_cohort: "Khóa tuyển sinh",
+};
+
+const entries = aggregates.variance_explained.filter((e) => e.var in labels);
+const maxValue = Math.max(...entries.map((e) => e.value));
+const width = 640;
+const rowHeight = 30;
+const height = entries.length * rowHeight + 10;
+const labelWidth = 210;
+const barAreaWidth = width - labelWidth - 60;
+
+function highlight(v: string) {
+  return v === "track_label" || v === "program";
+}
+---
+<figure>
+  <svg
+    viewBox={`0 0 ${width} ${height}`}
+    role="img"
+    aria-label="Biểu đồ cột ngang xếp hạng 10 biến theo eta bình phương; chuyên ngành và lớp học dẫn đầu ở khoảng 0.34-0.35, chương trình đào tạo gần cuối bảng ở 0.011."
+  >
+    {entries.map((e, i) => {
+      const y = i * rowHeight;
+      const w = (e.value / maxValue) * barAreaWidth;
+      const isHi = highlight(e.var);
+      return (
+        <g>
+          <text x={labelWidth - 10} y={y + rowHeight / 2 + 4} font-size="12" text-anchor="end" fill={isHi ? "var(--color-ink)" : "var(--color-muted)"} font-weight={isHi ? "600" : "400"}>
+            {labels[e.var]}
+          </text>
+          <rect x={labelWidth} y={y + 5} width={w} height={rowHeight - 12} fill={isHi ? "var(--color-cntt)" : "var(--color-line-strong)"} />
+          <text x={labelWidth + w + 8} y={y + rowHeight / 2 + 4} font-size="12" fill="var(--color-ink)" font-weight={isHi ? "600" : "400"}>
+            {e.value.toFixed(3)}
+          </text>
+        </g>
+      );
+    })}
+  </svg>
+  <figcaption>
+    η² (hoặc r² cho tín chỉ) đo tỷ lệ phương sai CPA mà mỗi cách phân nhóm giải thích được. Chuyên ngành
+    và chương trình được tô đậm để so sánh trực tiếp.
+  </figcaption>
+  <DataTable headers={["Biến", "Số nhóm (k)", "Giá trị"]}>
+    {entries.map((e) => (
+      <tr>
+        <td>{labels[e.var]}</td>
+        <td>{e.k ?? "—"}</td>
+        <td>{e.value.toFixed(4)}</td>
+      </tr>
+    ))}
+  </DataTable>
+</figure>
